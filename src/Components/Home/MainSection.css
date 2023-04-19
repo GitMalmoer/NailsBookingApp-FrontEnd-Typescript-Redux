@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+
+
+.firstSection{
+  z-index: 1;
+  height: 100vh;
+  color: #053543;
+}
+
+.MainContainer1
+{
+  background-color: #fdf5e6;
+  position: relative;
+}
+
+.firstSectionButtons{
+  position: relative;
+  z-index: 1;
+}
+
+.text-slanted{
+  /* font-family: 'Kaushan Script', cursive; */
+  font-family: 'Merriweather', serif !important;
+  /* font-weight: 700; */
+}
+
+.MainPicContainer{
+  position: relative;
+}
+
+.MainPic1{
+  width: 100%;
+  height: 100vh;
+  /* filter: brightness(90%); */
+}
+.leaves{
+  z-index: 0;
+  opacity: 30%;
+  position: absolute;
+  height: 50%;
+  bottom:0;
+  right: 0;
+  transform: scaleX(-1);
+  overflow: hidden;
+}

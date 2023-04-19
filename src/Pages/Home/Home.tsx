@@ -6,6 +6,12 @@ import Typewriter from "typewriter-effect";
 import "./Home.css"
 
 import image from "../../Images/undraw_Camera_re_cnp4.svg";
+import manicoure from "../../Assets/Manicoure/mani4.svg";
+import map from "../../Assets/undraw_map_dark_re_36sy.svg";
+import MainSection from "../../Components/Home/MainSection";
+import OurServices from "../../Components/Home/OurServices";
+import withScrollUp from "../../HOC/ScrollUp";
+let KasiaPic = require("../../Assets/ImageCropped.jpeg")
 
 function Home() {
   useEffect(() => {
@@ -14,34 +20,55 @@ function Home() {
 
   return (
     <div>
-      {/* <!-- NavBar va a todo lo ancho --> */}
-      <nav className="navbar" role="navigation" aria-label="main navigation">
-        <div className="navbar-brand">
-          <a className="navbar-item" href="https://bulma.io">
-            <img
-              src="https://bulma.io/images/bulma-logo.png"
-              width="112"
-              height="28"
-              alt=""
-            />
-          </a>
-        </div>
+      <div  className="row" id="maincomponent">
+    <MainSection/>
+      </div>
 
-        <div className="navbar-menu">
-          <div className="navbar-end">
-            <a className="navbar-item">WHY?</a>
+      <div className="row"></div>
 
-            <a className="navbar-item">BUY</a>
-
-            <a className="navbar-item">ILLUSTRATION SERIES</a>
-
-            <a className="navbar-item">EXCLUSIVE ILLUSTRATIONS</a>
+      <section className="hero is-white is-fullheight">
+        <div className="hero-body">
+          <div className="container">
+            <div className="columns  is-vcentered">
+              <div
+                data-aos="fade-left"
+                className="column
+          is-10-mobile is-offset-1-mobile
+          is-10-tablet is-offset-1-tablet
+          is-4-desktop is-offset-1-desktop
+          is-4-widescreen is-offset-1-widescreen
+          is-4-fullhd is-offset-1-fullhd"
+              >
+                <figure className="image is-square">
+                  <img src={manicoure}  alt="" />
+                </figure>
+              </div>
+              <div
+                data-aos="fade-down"
+                className="column
+          is-10-mobile is-offset-1-mobile
+          is-10-tablet is-offset-1-tablet
+          is-5-desktop is-offset-1-desktop
+          is-5-widescreen is-offset-1-widescreen
+          is-5-fullhd is-offset-1-fullhd"
+              >
+                <h1 className="titled ">
+                  About Me
+                </h1>
+                <div className="mb-4"><img src={KasiaPic} style={{borderRadius:"100%", maxWidth:"150px"}} alt="" /></div>
+                <h2 className="subtitled subtitle">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Laborum cupiditate dolorum vitae dolores nesciunt totam magni
+                  quas.
+                </h2>
+              </div>
+            </div>
           </div>
         </div>
-      </nav>
+      </section>
 
       {/* <!-- Hero del producto --> */}
-      <section className="hero is-white is-fullheight">
+      <section className="hero is-white is-fullheight" >
         <div className="hero-body">
           <div className="container">
             <div className="columns  is-vcentered reverse-columns">
@@ -82,7 +109,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="hero is-white is-fullheight">
+      <section className="hero is-white is-fullheight" >
         <div className="hero-body">
           <div className="container">
             <div className="columns  is-vcentered">
@@ -109,7 +136,7 @@ function Home() {
           is-5-fullhd is-offset-1-fullhd"
               >
                 <h1 className="titled title is-1 mb-6">
-                  absurd illustrations that make sense
+                  About Us
                 </h1>
                 <h2 className="subtitled subtitle">
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit.
@@ -121,6 +148,8 @@ function Home() {
           </div>
         </div>
       </section>
+
+      <OurServices/>
 
       <section className="hero is-white is-fullheight">
         <div className="hero-body">
@@ -136,12 +165,11 @@ function Home() {
           is-5-fullhd is-offset-1-fullhd"
               >
                 <h1 className="title titled is-1 mb-6">
-                  absurd illustrations that make sense
+                  Find us in Karlskoga!
                 </h1>
                 <h2 className="subtitle subtitled">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Laborum cupiditate dolorum vitae dolores nesciunt totam magni
-                  quas.
+                We are located at Sandtorpsvägen 3A
+                  <a href="" className="btn btn-primary text-white" style={{ borderRadius: 0 }}>Click Here To Show Map</a>
                 </h2>
               </div>
               <div
@@ -154,7 +182,7 @@ function Home() {
           is-4-fullhd is-offset-1-fullhd"
               >
                 <figure className="image is-square">
-                  <img src={image}  alt="" />
+                  <img src={map}  alt="" />
                 </figure>
               </div>
             </div>
@@ -168,20 +196,19 @@ function Home() {
             <div className="columns is-centered">
               <div data-aos="zoom-in-up" className="column is-8">
                 <h1 className="title titled is-1 mb-6">
+                Nails that will
                   <Typewriter
                     options={{
-                      strings: ["Best Welders ", "In the world"],
+                      strings: ["Make You Beautiful", "Boost Up Your Confidence!","Make You smile!"],
                       autoStart: true,
                       loop: true,
+                      deleteSpeed: 50,
                     }}
                   />
                 </h1>
 
                 <h2 className="subtitle subtitled">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Laborum cupiditate dolorum vitae dolores nesciunt totam magni
-                  quas. Lorem ipsum, dolor sit amet consectetur adipisicing
-                  elit.
+                  Vi Sees!
                 </h2>
               </div>
             </div>

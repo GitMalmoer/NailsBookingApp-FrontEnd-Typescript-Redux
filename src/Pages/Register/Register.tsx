@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import "./register.css"
-import Typewriter from 'react-simple-typewriter'
-import { useTypewriter } from 'react-simple-typewriter'
+import React, { useEffect, useState } from "react";
+import "./register.css";
+import Typewriter from "react-simple-typewriter";
+import { useTypewriter } from "react-simple-typewriter";
 
 const facts = [
   "Manicure comes from the Latin words for 'hand' and 'care.'",
@@ -23,82 +23,78 @@ const facts = [
   "Nail color was used to signify social status in ancient Greece and Rome.",
   "Manicures and pedicures can express individuality and creativity.",
   "Regular manicures and pedicures prevent foot and nail problems.",
-  "Manicures and pedicures discourage nail biting."
+  "Manicures and pedicures discourage nail biting.",
 ];
 function Register() {
-
-  const pickRandomString = () => {
-    let random = Math.floor(Math.random() * facts.length);
-    console.log(facts[random])
-    return [facts[random],"smth"];
-  }
-  
-  const [singleArray, setSingleArray] = useState(["test"]);
-  const [loopEnded, setLoopEnded] = useState(false);
-
-
   const [text, flags] = useTypewriter({
     words: facts,
     loop: false,
     typeSpeed: 50,
     deleteSpeed: 40,
   });
-
   const { isDelete, isType, isDelay, isDone } = flags;
 
-  useEffect(() => {
-      setSingleArray(pickRandomString());
-    console.log("IM DONE")
-    setLoopEnded(true);
-  },[isDone && !isType && !isDelete])
-
-
   return (
-    <div><section className="container">
-    <div className="columns is-multiline">
-      <div className="column is-8 is-offset-2 register">
-        <div className="columns">
-          <div className="column left">
-            <h1 className="title is-1">Did you know?</h1>
-            <h2 className="subtitle colored is-4">There are some interesting facts about manicure:</h2>
-            <p>
-            {/* <Typewriter
-                    options={{
-                      strings: [...facts],
-                      autoStart: true,
-                      loop: true,
-                      deleteSpeed: 20,
-                      delay: 40,
-                    }}
-                  /> */}
+    <div className="register-comp p-5">
+      <section className="container ">
+          <div className="col-md-8 offset-md-2 col-12 register">
+            <div className="columns">
+              <div className="column left">
+                <h1 className="title is-1">Did you know?</h1>
+                <h2 className="subtitle colored is-4">
+                  There are some interesting facts about manicure:
+                </h2>
+                <p>
                   {text}
-            </p>
-          </div>
-          <div className="column right has-text-centered">
-            <h1 className="title is-4">Sign up today</h1>
-            <p className="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit</p>
-            <form>
-              <div className="field">
-                <div className="control">
-                  <input className="input is-medium" type="text" placeholder="Name"/>
-                </div>
+                </p>
               </div>
+              <div className="column right has-text-centered">
+                <h1 className="title is-4">Sign up today</h1>
+                <p className="description">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit
+                </p>
+                <form>
+                  <div className="field">
+                    <div className="control">
+                      <input
+                        className="input is-medium"
+                        type="text"
+                        placeholder="Name"
+                      />
+                    </div>
+                  </div>
 
-              <div className="field">
-                <div className="control">
-                  <input className="input is-medium" type="email" placeholder="Email"/>
-                </div>
+                  <div className="field">
+                    <div className="control">
+                      <input
+                        className="input is-medium"
+                        type="email"
+                        placeholder="Email"
+                      />
+                    </div>
+                  </div>
+                  <button className="button is-block is-primary is-fullwidth is-medium">
+                    Submit
+                  </button>
+                  <br />
+                  <small>
+                    <em>Lorem ipsum dolor sit amet consectetur.</em>
+                  </small>
+                </form>
               </div>
-              <button className="button is-block is-primary is-fullwidth is-medium">Submit</button>
-              <br />
-              <small><em>Lorem ipsum dolor sit amet consectetur.</em></small>
-            </form>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="column is-8 is-offset-2">
-        <br/>
-        {/* <nav className="level">
+      </section>
+    </div>
+  );
+}
+
+export default Register;
+
+{
+  /* <div className="column is-8 is-offset-2">
+            <br />
+             <nav className="level">
           <div className="level-left">
             <div className="level-item">
               <span className="icon">
@@ -123,12 +119,6 @@ function Register() {
               &copy; Super Cool Website. All Rights Reserved.
             </small>
           </div>
-        </nav> */}
-      </div>
-    </div>
-  </section>
-</div>
-  )
+        </nav> 
+          </div>*/
 }
-
-export default Register

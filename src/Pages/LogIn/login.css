@@ -28,7 +28,8 @@
   input {
     font-weight: 300;
   }
-  p {
+  /* NOT USED NOW */
+  .plogin { 
     font-weight: 700;
   }
   p.subtitle {

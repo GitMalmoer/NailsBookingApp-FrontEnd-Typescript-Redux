@@ -11,6 +11,7 @@ import Register from '../Pages/Register/Register';
 import AskQuestion from '../Pages/AskQuestion/AskQuestion';
 import Reviews from '../Pages/Reviews/Reviews';
 import AdminPanel from '../Pages/AdminPanel/AdminPanel';
+import NotFound from '../Pages/NotFound/NotFound';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
        <Route path='/askquestion' element={<AskQuestion/>} /> 
        <Route path='/reviews' element={<Reviews/>} /> 
        <Route path='/adminpanel' element={<AdminPanel/>} /> 
+       <Route path='*' element={<NotFound/>} /> 
     </Routes>
     <Footer/>
   </div>

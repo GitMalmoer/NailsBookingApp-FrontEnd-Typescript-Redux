@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./register.css";
 import Typewriter from "react-simple-typewriter";
 import { useTypewriter } from "react-simple-typewriter";
+import { inputHelper } from "../../Helper";
+import { useRegisterUserMutation } from "../../API/authApi";
+import apiResponse from "../../Interfaces/apiResponse";
 
 const facts = [
   "Manicure comes from the Latin words for 'hand' and 'care.'",
@@ -33,57 +36,161 @@ function Register() {
     deleteSpeed: 40,
   });
   const { isDelete, isType, isDelay, isDone } = flags;
+  const [loading, setLoading] = useState(false);
+
+  const [registerUser] = useRegisterUserMutation();
+  const [errorMessage, setErrorMessage] = useState<string[]>([]);
+
+  const [userInput, setUserInput] = useState({
+    name: "",
+    lastName: "",
+    email: "",
+    confirmPassword: "",
+    password: "",
+  });
+
+  const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const tempData = inputHelper(e, userInput);
+    setUserInput(tempData);
+  };
+
+  const handleRegister = async (e: any) => {
+    setLoading(true);
+    e.preventDefault();
+
+    const response: apiResponse = await registerUser({
+      email: userInput.email,
+      name: userInput.name,
+      lastName: userInput.lastName,
+      confirmPassword: userInput.confirmPassword,
+      password: userInput.password,
+    });
+
+    if (response?.data) {
+      console.log("Register sucessfull");
+    } else if (response?.error?.data?.errors) {
+      console.log("specific errors obj");
+
+      const myArray = Object.keys(response.error.data.errors).map((key) => ({
+        name: key,
+        value: response.error.data.errors[key],
+      }));
+
+      const errors = [];
+      for (const err of myArray) {
+        let currentError = err.value[0];
+        errors.push(currentError);
+      }
+
+      setErrorMessage(errors);
+    } else if (response?.error?.data?.errorMessages) {
+      let currentError = response.error.data.errorMessages[0];
+      setErrorMessage([currentError]);
+    }
+
+  };
+
+  useEffect(() => {
+    console.log("change effect");
+    if (errorMessage) {
+      console.log(errorMessage);
+    }
+  }, [errorMessage]);
 
   return (
     <div className="register-comp p-5">
       <section className="container ">
-          <div className="col-md-8 offset-md-2 col-12 register">
-            <div className="columns">
-              <div className="column left">
-                <h1 className="title is-1">Did you know?</h1>
-                <h2 className="subtitle colored is-4">
-                  There are some interesting facts about manicure:
-                </h2>
-                <p>
-                  {text}
-                </p>
-              </div>
-              <div className="column right has-text-centered">
-                <h1 className="title is-4">Sign up today</h1>
-                <p className="description">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit
-                </p>
-                <form>
-                  <div className="field">
-                    <div className="control">
-                      <input
-                        className="input is-medium"
-                        type="text"
-                        placeholder="Name"
-                      />
-                    </div>
+        <div className="col-md-8 offset-md-2 col-12 register">
+          <div className="columns">
+            <div className="column left">
+              <h1 className="title is-1">Did you know?</h1>
+              <h2 className="subtitle colored is-4">
+                There are some interesting facts about manicure:
+              </h2>
+              <p>{text}</p>
+            </div>
+            <div className="column right has-text-centered">
+              <h1 className="title is-4">Sign up today</h1>
+              <p className="description">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit
+              </p>
+              <form onSubmit={(e) => handleRegister(e)}>
+                <div className="field">
+                  <div className="control">
+                    <input
+                      className="input is-medium"
+                      type="text"
+                      placeholder="Name"
+                      name="name"
+                      onChange={(e) => handleUserInput(e)}
+                    />
                   </div>
+                </div>
 
-                  <div className="field">
-                    <div className="control">
-                      <input
-                        className="input is-medium"
-                        type="email"
-                        placeholder="Email"
-                      />
-                    </div>
+                <div className="field">
+                  <div className="control">
+                    <input
+                      className="input is-medium"
+                      type="text"
+                      placeholder="Last Name"
+                      onChange={(e) => handleUserInput(e)}
+                      name="lastName"
+                    />
                   </div>
-                  <button className="button is-block is-primary is-fullwidth is-medium">
-                    Submit
-                  </button>
-                  <br />
-                  <small>
-                    <em>Lorem ipsum dolor sit amet consectetur.</em>
-                  </small>
-                </form>
-              </div>
+                </div>
+
+                <div className="field">
+                  <div className="control">
+                    <input
+                      className="input is-medium"
+                      type="email"
+                      placeholder="Email"
+                      onChange={(e) => handleUserInput(e)}
+                      name="email"
+                    />
+                  </div>
+                </div>
+
+                <div className="field">
+                  <div className="control">
+                    <input
+                      className="input is-medium"
+                      type="password"
+                      placeholder="Password"
+                      onChange={(e) => handleUserInput(e)}
+                      name="password"
+                    />
+                  </div>
+                </div>
+
+                <div className="field">
+                  <div className="control">
+                    <input
+                      className="input is-medium"
+                      type="password"
+                      placeholder="Confirm password"
+                      name="confirmPassword"
+                      onChange={(e) => handleUserInput(e)}
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="button is-block is-primary is-fullwidth is-medium"
+                >
+                  Submit
+                </button>
+                <br />
+                <small>
+                  {errorMessage && errorMessage?.map((error,index) => {
+                    return <div className="text-danger" key={index}>{error}</div>
+                  })}
+                </small>
+              </form>
             </div>
           </div>
+        </div>
       </section>
     </div>
   );

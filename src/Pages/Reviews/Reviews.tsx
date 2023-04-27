@@ -1,8 +1,12 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import "./reviews.css"
 import { Comment } from '../../Components/Reviews'
+import { useGetUsersQuery } from '../../API/authApi'
 
 function Reviews() {
+
+
+
   return (
     <div>	
 	<div className="container-fluid my-5">
@@ -34,7 +38,7 @@ function Reviews() {
                             <div className="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                                 <div className="form-group">
                                     <label className="sr-only" htmlFor="message">post</label>
-                                    <textarea className="form-control" id="message" rows={3} placeholder="What are you thinking..."></textarea>
+                                    <textarea className="form-control" autoComplete="off" id="message" rows={3} placeholder="What are you thinking..."></textarea>
                                 </div>
 
                             </div>

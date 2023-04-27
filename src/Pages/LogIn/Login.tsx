@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link'
@@ -6,6 +6,11 @@ let logo = require("../../Assets/logotransp.png");
 
 function Login() {
     let navigate = useNavigate();
+    const [userInput, setUserInput] = useState();
+
+    const handleLogin = (e:any) =>{
+      e.preventDefault();
+    }
 
   return (
     <div className="login">
@@ -23,7 +28,7 @@ function Login() {
                 <figure className="avatar">
                   <img src={logo} style={{ width: "150px", height: "150px" }} />
                 </figure>
-                <form>
+                <form onSubmit={(e) => handleLogin(e)}>
                   <div className="field">
                     <div className="control">
                       <input

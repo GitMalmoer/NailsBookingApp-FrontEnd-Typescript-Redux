@@ -4,7 +4,7 @@ import messageImg from "../../Assets/inbox.svg"
 function AskQuestion() {
   return (
     <div className="row">
-      <h1>Ask Me Anything!</h1>
+      <h1 className="text-center">Ask Me Anything!</h1>
       <div className="col-12 col-lg-4 col-md-6  offset-lg-2"><img src={messageImg} alt="" /></div>
       <div className="col-12 col-lg-4 col-md-6 p-5" style={{textAlign:"left"}}>
         {" "}

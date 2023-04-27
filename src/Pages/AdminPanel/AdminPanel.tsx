@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./adminPanel.css"
+import { useGetUsersQuery } from '../../API/authApi';
+import { userModel } from '../../Interfaces';
 
 function AdminPanel() {
+
+	const {data,isLoading} = useGetUsersQuery(null);
+    const [userList,setUserList] = useState<userModel[]>([]);
+
+	useEffect(() =>{
+        if(data && !isLoading)
+        {
+            setUserList(data.result);
+        }
+	},[isLoading])
+
+    console.log(userList)
+
+    
+
+
   return (
     <div className='admin-panel'>
     <div className="container">
@@ -64,7 +82,7 @@ function AdminPanel() {
                     <div className="tile is-ancestor has-text-centered">
                         <div className="tile is-parent">
                             <article className="tile is-child box">
-                                <p className="title">439k</p>
+                                <p className="title">{userList && userList.length}</p>
                                 <p className="subtitle">Users</p>
                             </article>
                         </div>

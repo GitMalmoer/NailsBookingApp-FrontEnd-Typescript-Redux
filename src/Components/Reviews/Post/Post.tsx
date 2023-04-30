@@ -1,17 +1,23 @@
 import React from "react";
 import postModel from "../../../Interfaces/postModel";
 import { time } from "console";
-import Comment from "../Comment/Comment";
+import Comment from "../Comment/CommentList";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../Storage/Redux/store";
+import { userModel } from "../../../Interfaces";
+import { useHandleLikeMutation } from "../../../API/blogApi";
+import apiResponse from "../../../Interfaces/apiResponse";
 
 interface Props {
   post: postModel;
+  loggedInUser: userModel;
 }
 
 function Post(props : Props) {
-  console.log(props);
 
   const fullName = props.post.applicationUserName +" "+ props.post.applicationUserLastName;
-
+  const postId :number = props?.post?.id;
+  const [handleLike] = useHandleLikeMutation();
 
 
   const calculateTimeAgo = () => {
@@ -59,6 +65,15 @@ function Post(props : Props) {
       return 0;
     }
   }
+
+  const handleLikeClick = async () => {
+    const response: apiResponse = await handleLike({
+      applicationUserId: props.loggedInUser.Id,
+      postId: props.post.id,
+      commentId: 0,
+    });
+    console.log(response);
+  };
 
   return (
     <div>
@@ -125,7 +140,7 @@ function Post(props : Props) {
             <div className="">
               <ul className="list-group list-group-horizontal">
                 <li className="list-group-item flex-fill text-center p-0 px-lg-2 border border-0">
-                  <a className="small text-decoration-none" href="#">
+                  <a onClick={() => handleLikeClick()} className="small text-decoration-none" >
                     <i className="far fa-thumbs-up"></i> {calculateLikeCount()} Like
                   </a>
                 </li>
@@ -133,10 +148,10 @@ function Post(props : Props) {
                   <a
                     className="small text-decoration-none"
                     data-bs-toggle="collapse"
-                    href="#collapseExample"
+                    href={`#collapseExample${props.post.id}`}
                     role="button"
                     aria-expanded="false"
-                    aria-controls="collapseExample"
+                    aria-controls={`collapseExample${props.post.id}`}
                   >
                     <i className="fas fa-comment-alt"></i> {calculateCommentsCount()} Comment
                   </a>
@@ -150,7 +165,7 @@ function Post(props : Props) {
             </div>
 
             {/* <!-- collapsed comments begins --> */}
-              <Comment/>
+              <Comment postId = {postId} loggedInUser = {props.loggedInUser}/>
             {/* <!-- collapsed comments ends --> */}
           </footer>
           {/* <!-- post footer ends --> */}

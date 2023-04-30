@@ -1,4 +1,4 @@
 import Post from "./Post/Post";
-import Comment from "./Comment/Comment";
+import Comment from "./Comment/CommentList";
 
 export {Post, Comment}

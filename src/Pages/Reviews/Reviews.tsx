@@ -1,22 +1,54 @@
 import React, {useEffect, useState} from 'react'
 import "./reviews.css"
 import { Post } from '../../Components/Reviews'
-import { useGetPostsQuery } from '../../API/blogApi'
+import { useCreatePostMutation, useGetPostsQuery } from '../../API/blogApi'
 import postModel from '../../Interfaces/postModel';
+import createPostModel from '../../Interfaces/createPostModel';
+import apiResponse from '../../Interfaces/apiResponse';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../Storage/Redux/store';
+import { userModel } from '../../Interfaces';
+
 
 function Reviews() {
 
 	const {data,isLoading,isSuccess} = useGetPostsQuery(null);
 	const [postList, setPostList] = useState([]);
+	const [createPost] = useCreatePostMutation();
+	const [postContent, setPostContent] = useState("");
+	const loggedInUser = useSelector((state : RootState) => state.userAuthStore);
 
 	useEffect(() => {
 		if(!isLoading && data)
 		{
-			console.log(data);
 			setPostList(data.result);
 		}
+	},[isLoading,data])
 
-	},[isLoading])
+	const handleChangePostContent = (e : React.ChangeEvent<HTMLTextAreaElement>) => {
+		setPostContent(e.target.value);
+	}
+
+	const handleCreatePost = async (e : React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if(loggedInUser.Id)
+		{
+			const response :apiResponse = await createPost({
+				applicationUserId :loggedInUser.Id,
+				content :postContent,
+			});
+			console.log(response);
+			if(response.data?.isSuccess)
+			{
+				setPostContent("");
+			}
+		}
+		else
+		{
+			console.log("you need to log in");
+		}
+		
+	}
 
   return (
     <div>	
@@ -36,6 +68,7 @@ function Reviews() {
 
 				{/* <!--- Post Form Begins --> */}
                 <section className="card" >
+					<form onSubmit={(e) => handleCreatePost(e)}>
                     <div className="card-header">
                         <ul className="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                             <li className="nav-item">
@@ -49,21 +82,22 @@ function Reviews() {
                             <div className="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                                 <div className="form-group">
                                     <label className="sr-only" htmlFor="message">post</label>
-                                    <textarea className="form-control" autoComplete="off" id="message" rows={3} placeholder="What are you thinking..."></textarea>
+                                    <textarea value={postContent} onChange={(e) => handleChangePostContent(e)} className="form-control" autoComplete="off" id="message" rows={3} placeholder="What are you thinking..."></textarea>
                                 </div>
 
                             </div>
                         </div>
                         <div className="mt-2 text-end">
-                        	<button type="submit" className="btn btn-primary">share</button>
+                        	<button type='submit' className="btn btn-primary">share</button>
                         </div>
                     </div>
+					</form>
                 </section>
                 {/* <!--- Post Form Ends --> */}
 
 				{/* <!-- Post Begins --> */}
 				{data && !isLoading ? <>{postList?.map((post : postModel) => {
-					return <Post key={post.id} post = {post}/>
+					return <Post key={post.id} post = {post} loggedInUser = {loggedInUser}/>
 				})}</> : <>No posts</>}
                 
                 {/* <!-- Post Ends --> */}

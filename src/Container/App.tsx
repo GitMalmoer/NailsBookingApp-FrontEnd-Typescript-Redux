@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Home from '../Pages/Home/Home';
 import { Route, Routes } from "react-router-dom";
@@ -12,11 +12,38 @@ import AskQuestion from '../Pages/AskQuestion/AskQuestion';
 import Reviews from '../Pages/Reviews/Reviews';
 import AdminPanel from '../Pages/AdminPanel/AdminPanel';
 import NotFound from '../Pages/NotFound/NotFound';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../Storage/Redux/store';
+import { setLoggedInUser } from '../Storage/Redux/userAuthSlice';
+import jwtDecode from 'jwt-decode';
+import { userModel } from '../Interfaces';
 
 function App() {
+  const userData = useSelector((state:RootState) => state.userAuthStore);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    const localStorageToken : any = localStorage.getItem("token");
+    console.log("App has been rendered")
+    if(localStorageToken)
+    {
+      const {ConfirmedEmail,Email,Id,LastName,Name,Role} : userModel = jwtDecode(localStorageToken);
+      dispatch(setLoggedInUser({ConfirmedEmail,Email,Id,LastName,Name,Role}));
+    }
+
+  },[])
+
+
+
+
+const smth = () => {
+  console.log(userData);
+}
   return (
     <div className="App">
     <Header />
+      <button onClick={() => smth()}>asdsa</button>
     <Routes>
       <Route path="/" element={<Home />} ></Route>
       <Route path="/home" element={<Home />}></Route>

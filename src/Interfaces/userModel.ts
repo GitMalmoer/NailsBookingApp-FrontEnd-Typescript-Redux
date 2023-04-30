@@ -1,8 +1,8 @@
 export default interface userModel{
-    id:number,
-    name: string,
-    lastName: string,
-    email:string,
-    confirmedEmail : boolean,
-    role: string,
+    Id:string,
+    Name: string,
+    LastName: string,
+    Email:string,
+    ConfirmedEmail : boolean,
+    Role: string,
 }

@@ -71,13 +71,13 @@ function Register() {
     } else if (response?.error?.data?.errors) {
       console.log("specific errors obj");
 
-      const myArray = Object.keys(response.error.data.errors).map((key) => ({
+      const errorsArrays = Object.keys(response.error.data.errors).map((key) => ({
         name: key,
         value: response.error.data.errors[key],
       }));
 
       const errors = [];
-      for (const err of myArray) {
+      for (const err of errorsArrays) {
         let currentError = err.value[0];
         errors.push(currentError);
       }

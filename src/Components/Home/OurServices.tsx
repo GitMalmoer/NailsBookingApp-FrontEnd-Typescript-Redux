@@ -17,7 +17,7 @@ function OurServices() {
     <div className="row px-5" >
         <h1 className="our-services-heading">Our Services</h1>
       <div className="col-12 col-md-4 my-2 " data-aos="fade-left">
-        <div className="card" style={{ width: "18rem;" }}>
+        <div className="card" >
           <img className="card-img-top" style={{maxHeight:"292px",width:"auto"}} src={pazy2} alt="Card image cap" />
           <div className="card-body">
             <h5 className="card-title">Manicoure long</h5>
@@ -33,7 +33,7 @@ function OurServices() {
       </div>
 
       <div className="col-12 col-md-4 my-2" data-aos="fade-up">
-        <div className="card" style={{ width: "18rem;" }}>
+        <div className="card" >
           <img className="card-img-top" style={{maxHeight:"292px",width:"auto"}} src={pazy3} alt="Card image cap" />
           <div className="card-body">
             <h5 className="card-title">Manicour hybrid</h5>
@@ -49,7 +49,7 @@ function OurServices() {
       </div>
 
       <div className="col-12 col-md-4 my-2" data-aos="fade-right">
-        <div className="card" style={{width: "18rem;" }}>
+        <div className="card" >
           <img className="card-img-top" style={{maxHeight:"292px",width:"auto"}} src={pedicure} alt="Card image cap" />
           <div className="card-body">
             <h5 className="card-title">Pedicure</h5>
@@ -63,13 +63,7 @@ function OurServices() {
           </div>
         </div>
       </div>
-
-
-
-
     </div>
-
-    
   );
 }
 

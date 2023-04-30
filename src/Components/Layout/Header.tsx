@@ -1,12 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Root } from "react-dom/client";
 import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import "./Header.css";
 import { log } from "console";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../Storage/Redux/store";
+import { emptyUserState, setLoggedInUser } from "../../Storage/Redux/userAuthSlice";
 let logo = require("../../Assets/logotransp.png");
 
 function Header() {
   let navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userData = useSelector((state : RootState) => state.userAuthStore);
+
+const onLogout = () => {
+  localStorage.removeItem("token");
+  dispatch(setLoggedInUser(emptyUserState));
+}
+
+  useEffect(() => {
+    //console.log("Header Rendered");
+  },[])
 
   return (
     <div>
@@ -63,22 +77,48 @@ function Header() {
                 </NavLink>
               </li>
 
-              <div className="d-md-flex ms-md-auto" >
+              <div className="d-md-flex ms-md-auto">
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/adminpanel">
                     Admin Panel
                   </NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/Login">
-                    Login
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/Register">
-                    Register
-                  </NavLink>
-                </li>
+
+                {userData.Id ? (
+                  <>
+                    <li className="nav-item">
+                      {" "}
+                      <button
+                        className="nav-link active"
+                        style={{
+                          backgroundColor: "transparent",
+                          border: "none",
+                          cursor:"pointer",
+                        }}
+                      >
+                        Welcome, {userData.Name}
+                      </button>
+                    </li>
+                    <li className="nav-item">
+                      <button className="nav-link" onClick={() => onLogout()}>
+                        Logout
+                      </button>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="/Login">
+                        Login
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="/Register">
+                        Register
+                      </NavLink>
+                    </li>
+                  </>
+                )}
               </div>
             </ul>
           </div>

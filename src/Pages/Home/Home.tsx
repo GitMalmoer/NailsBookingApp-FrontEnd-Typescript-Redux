@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "aos/dist/aos.css";
 import Aos from "aos";
 import "aos/dist/aos.css";
@@ -10,13 +10,15 @@ import manicoure from "../../Assets/Manicoure/mani4.svg";
 import map from "../../Assets/undraw_map_dark_re_36sy.svg";
 import MainSection from "../../Components/Home/MainSection";
 import OurServices from "../../Components/Home/OurServices";
-import withScrollUp from "../../HOC/ScrollUp";
 let KasiaPic = require("../../Assets/ImageCropped.jpeg")
+
 
 function Home() {
   useEffect(() => {
     Aos.init();
   }, []);
+
+
 
   return (
     <div>

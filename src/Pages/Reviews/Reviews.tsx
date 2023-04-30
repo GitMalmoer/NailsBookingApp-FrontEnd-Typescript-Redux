@@ -1,11 +1,22 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import "./reviews.css"
-import { Comment } from '../../Components/Reviews'
-import { useGetUsersQuery } from '../../API/authApi'
+import { Post } from '../../Components/Reviews'
+import { useGetPostsQuery } from '../../API/blogApi'
+import postModel from '../../Interfaces/postModel';
 
 function Reviews() {
 
+	const {data,isLoading,isSuccess} = useGetPostsQuery(null);
+	const [postList, setPostList] = useState([]);
 
+	useEffect(() => {
+		if(!isLoading && data)
+		{
+			console.log(data);
+			setPostList(data.result);
+		}
+
+	},[isLoading])
 
   return (
     <div>	
@@ -51,7 +62,10 @@ function Reviews() {
                 {/* <!--- Post Form Ends --> */}
 
 				{/* <!-- Post Begins --> */}
-                <Comment/>
+				{data && !isLoading ? <>{postList?.map((post : postModel) => {
+					return <Post key={post.id} post = {post}/>
+				})}</> : <>No posts</>}
+                
                 {/* <!-- Post Ends --> */}
 
 				

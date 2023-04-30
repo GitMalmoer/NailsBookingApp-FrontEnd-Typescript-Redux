@@ -1,25 +1,86 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { HashLink } from 'react-router-hash-link'
+import { inputHelper } from "../../Helper";
+import { useLoginUserMutation } from "../../API/authApi";
+import apiResponse from "../../Interfaces/apiResponse";
+import jwtDecode from "jwt-decode";
+import { userModel } from "../../Interfaces";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoggedInUser } from "../../Storage/Redux/userAuthSlice";
+import { RootState } from "../../Storage/Redux/store";
 let logo = require("../../Assets/logotransp.png");
 
 function Login() {
     let navigate = useNavigate();
-    const [userInput, setUserInput] = useState();
+    const [loginUser] = useLoginUserMutation();
+    const [isTyping,setIsTyping] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    const dispatch = useDispatch();
+    const [userInput, setUserInput] = useState({
+      email:"",
+      password:""
+    });
 
-    const handleLogin = (e:any) =>{
+
+    useEffect(()=>{
+      // whenever user is typing clear error messages
+      setErrorMessage("");
+    },[isTyping == true])
+
+    const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const tempData = inputHelper(e, userInput)
+      setUserInput(tempData);
+      setIsTyping(true);
+    }
+
+    const handleLogin = async (e:any) =>{
       e.preventDefault();
+      setIsTyping(false);
+      //console.log(userInput);
+      const response : apiResponse = await loginUser({
+        username:userInput.email,
+        password:userInput.password
+      });
+
+      console.log(response);
+
+      if(response.data)
+      {
+        const {token} = response.data.result;
+        if(token)
+        {
+          localStorage.setItem("token",token);
+          const {Id,Name,ConfirmedEmail,Email,LastName,Role} :userModel = jwtDecode(token);
+          console.log(Id,Name,ConfirmedEmail,Email,LastName,Role)
+          dispatch(setLoggedInUser({
+            Id,Name,ConfirmedEmail,Email,LastName,Role
+          }));
+          navigate("/");
+        }
+      }
+
+      if(response.error)
+      {
+        let errorMessage = response.error.data.errorMessages[0];
+        setErrorMessage(errorMessage);
+      }
+
+
+
     }
 
   return (
     <div className="login">
       {" "}
       <section className="hero is-success ">
-        <div className="hero-body col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4" >
+        <div className="hero-body col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
           <div className="text-center">
             <div className="">
-              <h3 className="p-0 m-0 text-black" style={{fontWeight:600}}>Login</h3>
+              <h3 className="p-0 m-0 text-black" style={{ fontWeight: 600 }}>
+                Login
+              </h3>
               <hr className="login-hr" />
               <p className="subtitle m-0 p-0 has-text-black">
                 Please login to proceed.
@@ -35,6 +96,8 @@ function Login() {
                         className="input is-large"
                         type="email"
                         placeholder="Your Email"
+                        name="email"
+                        onChange={(e) => handleUserInput(e)}
                       />
                     </div>
                   </div>
@@ -45,20 +108,33 @@ function Login() {
                         className="input is-large"
                         type="password"
                         placeholder="Your Password"
+                        name="password"
+                        onChange={(e) => handleUserInput(e)}
                       />
                     </div>
+                    <div>
+                    <small className="text-danger">{errorMessage && errorMessage }</small>
                   </div>
+                  </div>
+
+             
                   <div className="field">
                     <label className="checkbox">
                       <input type="checkbox" />
                       Remember me
                     </label>
                   </div>
-                  <button className="button is-block is-info is-large is-fullwidth">
+                  <button
+                    type="submit"
+                    className="button is-block is-info is-large is-fullwidth"
+                  >
                     Login <i className="fa fa-sign-in" aria-hidden="true"></i>
                   </button>
-
-                  <HashLink className="button is-block is-primary is-large is-fullwidth mt-2" to="/home/#maincomponent">
+                  {/* hashlink is a solution to React Router's issue of not scrolling to #hash-fragments */}
+                  <HashLink
+                    className="button is-block is-primary is-large is-fullwidth mt-2"
+                    to="/home/#maincomponent"
+                  >
                     Go Back <i className="fa fa-home" aria-hidden="true"></i>
                   </HashLink>
                 </form>

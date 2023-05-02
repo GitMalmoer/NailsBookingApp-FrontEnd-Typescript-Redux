@@ -18,6 +18,7 @@ const blogApi = createApi({
                 url:`getcommentsbyid/${id}`,
                 method: "GET",
             }),
+            providesTags: ["Posts"],
         }),
         createPost: builder.mutation({
             query: (postBody) => ({
@@ -36,12 +37,45 @@ const blogApi = createApi({
                 headers: { "content-type": "application/json" },
             }),
             invalidatesTags:["Posts"]
+        }),
+        addComment: builder.mutation({
+            query: (commentBody) => ({
+                url:"addcomment",
+                body:commentBody,
+                method:"POST",
+                headers: {"content-type": "application/json"},
+            }),
+            invalidatesTags:["Posts"]
+        }),
+        deletePost: builder.mutation({
+            query:(deleteBody) => ({
+                url:"deletepost",
+                body:deleteBody,
+                method:"DELETE",
+                headers: {"content-type": "application/json"},
+            }),
+            invalidatesTags:["Posts"]
+        }),
+        deleteComment: builder.mutation({
+            query:(commentBody) => ({
+                url:"deletecomment",
+                body:commentBody,
+                method:"DELETE",
+                headers: {"content-type": "application/json"},
+            }),
+            invalidatesTags:["Posts"] 
         })
     })
 
 })
 
-export const {useGetPostsQuery, useGetCommentsByIdQuery, useCreatePostMutation, useHandleLikeMutation} = blogApi;
-
-
+export const {
+  useGetPostsQuery,
+  useGetCommentsByIdQuery,
+  useCreatePostMutation,
+  useHandleLikeMutation,
+  useAddCommentMutation,
+  useDeletePostMutation,
+  useDeleteCommentMutation,
+} = blogApi;
 export default blogApi;

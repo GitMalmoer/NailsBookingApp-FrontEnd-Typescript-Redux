@@ -1,11 +1,11 @@
 import React from "react";
 import postModel from "../../../Interfaces/postModel";
 import { time } from "console";
-import Comment from "../Comment/CommentList";
+import CommentList from "../Comment/CommentList";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../Storage/Redux/store";
 import { userModel } from "../../../Interfaces";
-import { useHandleLikeMutation } from "../../../API/blogApi";
+import { useDeletePostMutation, useHandleLikeMutation } from "../../../API/blogApi";
 import apiResponse from "../../../Interfaces/apiResponse";
 
 interface Props {
@@ -18,6 +18,7 @@ function Post(props : Props) {
   const fullName = props.post.applicationUserName +" "+ props.post.applicationUserLastName;
   const postId :number = props?.post?.id;
   const [handleLike] = useHandleLikeMutation();
+  const [deletePost] = useDeletePostMutation();
 
 
   const calculateTimeAgo = () => {
@@ -67,20 +68,37 @@ function Post(props : Props) {
   }
 
   const handleLikeClick = async () => {
-    const response: apiResponse = await handleLike({
-      applicationUserId: props.loggedInUser.Id,
-      postId: props.post.id,
-      commentId: 0,
-    });
-    console.log(response);
+    if(props.loggedInUser.Id)
+    {
+      const response: apiResponse = await handleLike({
+        applicationUserId: props.loggedInUser.Id,
+        postId: props.post.id,
+        commentId: 0,
+      });
+      console.log(response);
+    }
+    else
+    {
+      console.log("You have to log in");
+    }
   };
+
+  const handleDeleteclick = async () => {
+    const response : apiResponse = await deletePost({
+      applicationUserId: props.loggedInUser.Id,
+      postId:props.post.id,
+    });
+
+    console.log(response);
+  }
+
 
   return (
     <div>
       {/* <!-- Post Begins --> */}
       <section className="card mt-4">
         <div className="border p-2">
-          <div
+        {props.post.applicationUserId == props.loggedInUser.Id ? <><div
             className="dropdown"
             style={{ position: "absolute", right: "15px", top: "5px" }}
           >
@@ -95,16 +113,16 @@ function Post(props : Props) {
             >
               <i className="fas fa-chevron-down"></i>
             </a>
-
             <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <a className="dropdown-item text-primary" href="#">
                 Edit whole post
               </a>
-              <a className="dropdown-item text-primary" href="#">
+              <a className="dropdown-item text-primary" onClick={() => handleDeleteclick()}>
                 Delete whole post
               </a>
             </div>
-          </div>
+          </div></> : <></>} 
+          
           {/* <!-- post header --> */}
           <div className="row">
             <div className="d-flex">
@@ -165,7 +183,7 @@ function Post(props : Props) {
             </div>
 
             {/* <!-- collapsed comments begins --> */}
-              <Comment postId = {postId} loggedInUser = {props.loggedInUser}/>
+              <CommentList postId = {postId} loggedInUser = {props.loggedInUser}/>
             {/* <!-- collapsed comments ends --> */}
           </footer>
           {/* <!-- post footer ends --> */}

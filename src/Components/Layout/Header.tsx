@@ -1,26 +1,29 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Root } from "react-dom/client";
 import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import "./Header.css";
 import { log } from "console";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../Storage/Redux/store";
-import { emptyUserState, setLoggedInUser } from "../../Storage/Redux/userAuthSlice";
+import {
+  emptyUserState,
+  setLoggedInUser,
+} from "../../Storage/Redux/userAuthSlice";
 let logo = require("../../Assets/logotransp.png");
 
 function Header() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
-  const userData = useSelector((state : RootState) => state.userAuthStore);
+  const userData = useSelector((state: RootState) => state.userAuthStore);
 
-const onLogout = () => {
-  localStorage.removeItem("token");
-  dispatch(setLoggedInUser(emptyUserState));
-}
+  const onLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(setLoggedInUser(emptyUserState));
+  };
 
   useEffect(() => {
     //console.log("Header Rendered");
-  },[])
+  }, []);
 
   return (
     <div>
@@ -86,19 +89,35 @@ const onLogout = () => {
 
                 {userData.Id ? (
                   <>
-                    <li className="nav-item">
-                      {" "}
-                      <button
-                        className="nav-link active"
-                        style={{
-                          backgroundColor: "transparent",
-                          border: "none",
-                          cursor:"pointer",
-                        }}
+                    <li className="nav-item dropdown">
+                      <a
+                        className="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
                       >
                         Welcome, {userData.Name}
-                      </button>
+                      </a>
+                      <ul className="dropdown-menu">
+                        <li>
+                          <NavLink className="dropdown-item" to="/userprofile">
+                            Profile
+                          </NavLink>
+                        </li>
+                        <li>
+                          <a className="dropdown-item" href="#">
+                            Another action
+                          </a>
+                        </li>
+                        <li>
+                          <a className="dropdown-item" href="#">
+                            Something else here
+                          </a>
+                        </li>
+                      </ul>
                     </li>
+
                     <li className="nav-item">
                       <button className="nav-link" onClick={() => onLogout()}>
                         Logout

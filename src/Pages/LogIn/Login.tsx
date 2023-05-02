@@ -10,6 +10,7 @@ import { userModel } from "../../Interfaces";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedInUser } from "../../Storage/Redux/userAuthSlice";
 import { RootState } from "../../Storage/Redux/store";
+import { NavLink } from "react-router-dom";
 let logo = require("../../Assets/logotransp.png");
 
 function Login() {
@@ -57,7 +58,7 @@ function Login() {
           dispatch(setLoggedInUser({
             Id,Name,ConfirmedEmail,Email,LastName,Role
           }));
-          navigate("/");
+          navigate("/#mainsection");
         }
       }
 
@@ -78,23 +79,17 @@ function Login() {
         <div className="hero-body col-sm-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
           <div className="text-center">
             <div className="">
-              <h3 className="p-0 m-0 text-black" style={{ fontWeight: 600 }}>
-                Login
-              </h3>
-              <hr className="login-hr" />
-              <p className="subtitle m-0 p-0 has-text-black">
-                Please login to proceed.
-              </p>
               <div className="box">
                 <figure className="avatar">
                   <img src={logo} style={{ width: "150px", height: "150px" }} />
                 </figure>
+                
                 <form onSubmit={(e) => handleLogin(e)}>
                   <div className="field">
                     <div className="control">
                       <input
                         className="input is-large"
-                        type="email"
+                        type="text"
                         placeholder="Your Email"
                         name="email"
                         onChange={(e) => handleUserInput(e)}
@@ -140,8 +135,8 @@ function Login() {
                 </form>
               </div>
               <p className="has-text-grey">
-                <a href="../">Sign Up</a> &nbsp;·&nbsp;
-                <a href="../">Forgot Password</a> &nbsp;·&nbsp;
+                <NavLink to="/register">Sign Up</NavLink> &nbsp;·&nbsp;
+                <NavLink to="/forgotpassword">Forgot Password</NavLink> &nbsp;·&nbsp;
               </p>
             </div>
           </div>

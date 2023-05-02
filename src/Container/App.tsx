@@ -17,6 +17,8 @@ import { RootState } from '../Storage/Redux/store';
 import { setLoggedInUser } from '../Storage/Redux/userAuthSlice';
 import jwtDecode from 'jwt-decode';
 import { userModel } from '../Interfaces';
+import ForgotPassword from '../Pages/ForgotPassword/ForgotPassword';
+import ResetPassword from '../Pages/ResetPassword/ResetPassword';
 
 function App() {
   const userData = useSelector((state:RootState) => state.userAuthStore);
@@ -43,7 +45,7 @@ const smth = () => {
   return (
     <div className="App">
     <Header />
-      <button onClick={() => smth()}>asdsa</button>
+      {/* <button style={{position:"absolute"}} onClick={() => smth()}>asdsa</button> */}
     <Routes>
       <Route path="/" element={<Home />} ></Route>
       <Route path="/home" element={<Home />}></Route>
@@ -54,6 +56,8 @@ const smth = () => {
        <Route path='/askquestion' element={<AskQuestion/>} /> 
        <Route path='/reviews' element={<Reviews/>} /> 
        <Route path='/adminpanel' element={<AdminPanel/>} /> 
+       <Route path='/forgotpassword' element={<ForgotPassword/>} /> 
+       <Route path='/resetpassword/token/:token?' element={<ResetPassword/>} /> 
        <Route path='*' element={<NotFound/>} /> 
     </Routes>
     <Footer/>

@@ -19,6 +19,7 @@ import jwtDecode from 'jwt-decode';
 import { userModel } from '../Interfaces';
 import ForgotPassword from '../Pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../Pages/ResetPassword/ResetPassword';
+import AccessDenied from '../Pages/AccessDenied/AccessDenied';
 
 function App() {
   const userData = useSelector((state:RootState) => state.userAuthStore);
@@ -58,6 +59,7 @@ const smth = () => {
        <Route path='/adminpanel' element={<AdminPanel/>} /> 
        <Route path='/forgotpassword' element={<ForgotPassword/>} /> 
        <Route path='/resetpassword/token/:token?' element={<ResetPassword/>} /> 
+       <Route path='/accessdenied' element={<AccessDenied/>} /> 
        <Route path='*' element={<NotFound/>} /> 
     </Routes>
     <Footer/>

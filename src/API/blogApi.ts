@@ -27,7 +27,7 @@ const blogApi = createApi({
                 method:"POST",
                 headers: { "content-type": "application/json" },
             }),
-            invalidatesTags:["Posts"]
+            invalidatesTags:["Posts"],
         }),
         handleLike: builder.mutation({
             query: (likeTarget) => ({
@@ -36,7 +36,7 @@ const blogApi = createApi({
                 method:"POST",
                 headers: { "content-type": "application/json" },
             }),
-            invalidatesTags:["Posts"]
+            invalidatesTags:["Posts"],
         }),
         addComment: builder.mutation({
             query: (commentBody) => ({
@@ -45,7 +45,7 @@ const blogApi = createApi({
                 method:"POST",
                 headers: {"content-type": "application/json"},
             }),
-            invalidatesTags:["Posts"]
+            invalidatesTags:["Posts"],
         }),
         deletePost: builder.mutation({
             query:(deleteBody) => ({
@@ -54,7 +54,7 @@ const blogApi = createApi({
                 method:"DELETE",
                 headers: {"content-type": "application/json"},
             }),
-            invalidatesTags:["Posts"]
+            invalidatesTags:["Posts"],
         }),
         deleteComment: builder.mutation({
             query:(commentBody) => ({
@@ -63,7 +63,25 @@ const blogApi = createApi({
                 method:"DELETE",
                 headers: {"content-type": "application/json"},
             }),
-            invalidatesTags:["Posts"] 
+            invalidatesTags:["Posts"],
+        }),
+        updatePost: builder.mutation({
+            query:(updatePostContent) => ({
+                url:"updatepost",
+                method:"PUT",
+                headers: {"content-type": "application/json"},
+                body:updatePostContent,
+            }),
+            invalidatesTags:["Posts"],
+        }),
+        updateComment: builder.mutation({
+            query: (updateCommentContent) => ({
+                url:"updatecomment",
+                method:"PUT",
+                headers: {"content-type": "application/json"},
+                body:updateCommentContent,
+            }),
+            invalidatesTags:["Posts"],
         })
     })
 
@@ -77,5 +95,7 @@ export const {
   useAddCommentMutation,
   useDeletePostMutation,
   useDeleteCommentMutation,
+  useUpdatePostMutation,
+  useUpdateCommentMutation,
 } = blogApi;
 export default blogApi;

@@ -81,11 +81,12 @@ function Header() {
               </li>
 
               <div className="d-md-flex ms-md-auto">
-                <li className="nav-item">
+                {userData?.Role == "admin" ? <><li className="nav-item">
                   <NavLink className="nav-link" to="/adminpanel">
                     Admin Panel
                   </NavLink>
-                </li>
+                </li></> : <></>}
+                
 
                 {userData.Id ? (
                   <>

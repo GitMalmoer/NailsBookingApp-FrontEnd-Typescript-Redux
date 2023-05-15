@@ -21,7 +21,7 @@ console.log(response);
 }
 
   return (
-    <div className=" py-4" style={{ background: "#F2F6FA" }}>
+    <div className="py-4 px-3 px-md-0" style={{ background: "#F2F6FA" }}>
       <div className="row">
         <div className="col-md-4 offset-md-4">
           <div className="card panel-default">

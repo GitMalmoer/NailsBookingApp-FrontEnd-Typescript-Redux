@@ -3,18 +3,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "../Storage/Redux/store";
 import { userModel } from "../Interfaces";
 
-const withAdminAuth = (WrappedComponent: any) => {
+const userMustBeLogged = (WrappedComponent: any) => {
   return (props: any) => {
     const userData: userModel = useSelector(
       (state: RootState) => state.userAuthStore
     );
 
-    if (userData.Id) {
-      if (userData.role != "admin") {
-        window.location.replace("/accessDenied");
-        return null;
-      }
-    } else {
+    if (!userData.Id) {
       // if user data is not present
       window.location.replace("/login");
       return null;
@@ -24,4 +19,4 @@ const withAdminAuth = (WrappedComponent: any) => {
   };
 };
 
-export default withAdminAuth;
+export default userMustBeLogged;

@@ -1,6 +1,8 @@
 import React from "react";
 import "./MainSection.css";
 import Typewriter from "typewriter-effect";
+import { NavLink } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 
 let pazy1 = require("../../Assets/pazywhite1.jpg");
 let manicure1 = require("../../Assets/manicure1.jpg");
@@ -36,25 +38,24 @@ function MainSection() {
               </span>
             </h1>
             <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit
-              vel ipsa explicabo minima iure saepe neque quaerat voluptatibus
-              accusantium expedita?
+            Welcome to Kate's Nail Salon, nestled in the heart of Karlskoga, where nail care becomes an exquisite experience.
             </p>
 
             <div className="firstSectionButtons">
-              <a
+              <NavLink
                 className="btn btn-primary me-2"
                 style={{ borderRadius: 0 }}
-                href="/bookappointment"
+                to="/bookappointment"
               >
                 Book Appointment
-              </a>
-              <button
+              </NavLink>
+              <HashLink
                 className="btn btn-outline-primary"
                 style={{ borderRadius: 0 }}
+                to={"#ourServices"}
               >
                 Our Service
-              </button>
+              </HashLink>
             </div>
 
             <div className="leaves">

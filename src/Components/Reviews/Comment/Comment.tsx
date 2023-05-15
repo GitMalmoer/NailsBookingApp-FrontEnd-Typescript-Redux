@@ -8,6 +8,7 @@ import {
 } from "../../../API/blogApi";
 import apiResponse from "../../../Interfaces/apiResponse";
 import { inputHelper } from "../../../Helper";
+import unknownProfile from "../../../Assets/unknownprofile.svg";
 
 interface Props {
   comment: commentModel;
@@ -30,6 +31,13 @@ function Comment(props: Props) {
     props.comment?.applicationUserName +
     " " +
     props.comment?.applicationUserLastName;
+
+    let avatar = props.comment.applicationUserAvatarUri;
+
+    if(!avatar)
+    {
+      avatar = unknownProfile;
+    }
 
   const calculateTimeAgo = () => {
     const datePosted: any =
@@ -132,7 +140,8 @@ function Comment(props: Props) {
             <a className="text-decoration-none" href="#">
               <img
                 className="profile-pic"
-                src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"
+                src={avatar}
+                style={{borderRadius:"50%"}}
                 width="40"
                 height="40"
                 alt="profileImg"

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Home from '../Pages/Home/Home';
 import { Route, Routes } from "react-router-dom";
@@ -20,25 +20,34 @@ import { userModel } from '../Interfaces';
 import ForgotPassword from '../Pages/ForgotPassword/ForgotPassword';
 import ResetPassword from '../Pages/ResetPassword/ResetPassword';
 import AccessDenied from '../Pages/AccessDenied/AccessDenied';
+import Profile from '../Pages/Profile/Profile';
+import MainLoader from '../Components/Common/MainLoader';
+import ChangePassword from '../Pages/ChangePassword/ChangePassword';
+import ConfirmEmail from '../Pages/ConfirmEmail/ConfirmEmail';
+import Pricing from '../Pages/Pricing/Pricing';
 
 function App() {
   const userData = useSelector((state:RootState) => state.userAuthStore);
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
 
   useEffect(() => {
+    setIsLoading(true);
     const localStorageToken : any = localStorage.getItem("token");
     console.log("App has been rendered")
     if(localStorageToken)
     {
-      const {ConfirmedEmail,Email,Id,LastName,Name,Role} : userModel = jwtDecode(localStorageToken);
-      dispatch(setLoggedInUser({ConfirmedEmail,Email,Id,LastName,Name,Role}));
+      const {ConfirmedEmail,Email,Id,LastName,Name,role} : userModel = jwtDecode(localStorageToken);
+      dispatch(setLoggedInUser({ConfirmedEmail,Email,Id,LastName,Name,role}));
     }
-
+    setIsLoading(false);
   },[])
 
-
-
+  if (isLoading) {
+    console.log("loading")
+    return <div><MainLoader/></div>
+  }
 
 const smth = () => {
   console.log(userData);
@@ -56,10 +65,14 @@ const smth = () => {
        <Route path='/register' element={<Register/>} /> 
        <Route path='/askquestion' element={<AskQuestion/>} /> 
        <Route path='/reviews' element={<Reviews/>} /> 
+       <Route path='/pricing' element={<Pricing/>} /> 
        <Route path='/adminpanel' element={<AdminPanel/>} /> 
+       <Route path='/profile' element={<Profile/>} /> 
        <Route path='/forgotpassword' element={<ForgotPassword/>} /> 
        <Route path='/resetpassword/token/:token?' element={<ResetPassword/>} /> 
        <Route path='/accessdenied' element={<AccessDenied/>} /> 
+       <Route path='/changepassword' element={<ChangePassword/>} /> 
+       <Route path='/confirmemail' element={<ConfirmEmail/>} /> 
        <Route path='*' element={<NotFound/>} /> 
     </Routes>
     <Footer/>

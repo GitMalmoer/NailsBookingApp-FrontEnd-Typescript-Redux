@@ -110,9 +110,9 @@ function Register() {
               <p>{text}</p>
             </div>
             <div className="column right has-text-centered">
-              <h1 className="title is-4">Sign up today</h1>
+              <h1 className="title is-4">Sign up</h1>
               <p className="description">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit
+                Be a member today!
               </p>
               <form onSubmit={(e) => handleRegister(e)}>
                 <div className="field">

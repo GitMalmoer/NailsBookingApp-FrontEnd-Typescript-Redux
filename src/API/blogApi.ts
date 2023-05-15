@@ -82,7 +82,7 @@ const blogApi = createApi({
                 body:updateCommentContent,
             }),
             invalidatesTags:["Posts"],
-        })
+        }),
     })
 
 })

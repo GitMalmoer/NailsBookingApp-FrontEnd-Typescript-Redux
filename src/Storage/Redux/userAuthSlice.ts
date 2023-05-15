@@ -8,7 +8,7 @@ export const emptyUserState : userModel = {
     Email:"",
     LastName:"",
     Name:"",
-    Role:"",
+    role:"",
 }
 
 export const userAuthSlice = createSlice({
@@ -21,7 +21,7 @@ export const userAuthSlice = createSlice({
             state.LastName = action.payload.LastName;
             state.ConfirmedEmail = action.payload.ConfirmedEmail;
             state.Email = action.payload.Email;
-            state.Role = action.payload.Role;
+            state.role = action.payload.role;
         },
     }
 });

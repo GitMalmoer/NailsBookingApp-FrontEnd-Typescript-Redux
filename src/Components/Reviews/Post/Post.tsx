@@ -12,6 +12,7 @@ import {
 import apiResponse from "../../../Interfaces/apiResponse";
 import { useUpdatePostMutation } from "../../../API/blogApi";
 import { inputHelper } from "../../../Helper";
+import unknownProfile from "../../../Assets/unknownprofile.svg";
 
 interface Props {
   post: postModel;
@@ -21,6 +22,14 @@ interface Props {
 function Post(props: Props) {
   const fullName =
     props.post.applicationUserName + " " + props.post.applicationUserLastName;
+
+    let avatar = props.post.applicationUserAvatarUri;
+    if(!avatar)
+    {
+      avatar = unknownProfile;
+    }
+
+
   const postId: number = props?.post?.id;
   const [isEditing, setIsEditing] = useState(false);
   const [handleLike] = useHandleLikeMutation();
@@ -183,7 +192,8 @@ function Post(props: Props) {
               <a className="text-decoration-none">
                 <img
                   className=""
-                  src="https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/avat-01-512.png"
+                  src={avatar}
+                  style={{borderRadius:"50%"}}
                   width="50"
                   height="50"
                   alt="profileImg"

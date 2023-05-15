@@ -4,5 +4,5 @@ export default interface userModel{
     LastName: string,
     Email:string,
     ConfirmedEmail : boolean,
-    Role: string,
+    role: string,
 }

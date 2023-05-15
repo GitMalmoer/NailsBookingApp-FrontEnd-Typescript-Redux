@@ -22,6 +22,7 @@ function Reviews() {
 		if(!isLoading && data)
 		{
 			setPostList(data.result);
+			console.log(data.result);
 		}
 	},[isLoading,data])
 
@@ -53,18 +54,17 @@ function Reviews() {
   return (
     <div>	
 	<div className="container-fluid my-5">
-		<div className="row">
-			<div className="col-3">
-				<div className="card">
+		<div className="row ">
+			<div className="col-md-3 mb-3 mb-md-0">
+				<div className="card ">
 					<div className="card-body">
-						<h5 className="card-title">Special title treatment</h5>
-						<h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
-						<p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-						<a href="#" className="btn btn-sm btn-primary">Go somewhere</a>
+						<h5 className="card-title">Make a post</h5>
+						<h6 className="card-subtitle mb-2 text-muted">A right place to ask</h6>
+						<p className="card-text">Here you can leave a review, ask a question, or write whatever you have on your mind about our nail service!</p>
 					</div>
 				</div>
 			</div>
-			<div className="col-6">
+			<div className="col-md-8">
 
 				{/* <!--- Post Form Begins --> */}
                 <section className="card" >
@@ -101,10 +101,8 @@ function Reviews() {
 				})}</> : <>No posts</>}
                 
                 {/* <!-- Post Ends --> */}
-
-				
 			</div>
-			<div className="col-3">
+			{/* <div className="col-3">
 				<div className="card">
 					<div className="card-body p-3">
 						<h5 className="card-title m-0">Friends</h5>
@@ -133,7 +131,7 @@ function Reviews() {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	</div>
 </div>

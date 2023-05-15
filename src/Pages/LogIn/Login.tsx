@@ -53,10 +53,10 @@ function Login() {
         if(token)
         {
           localStorage.setItem("token",token);
-          const {Id,Name,ConfirmedEmail,Email,LastName,Role} :userModel = jwtDecode(token);
-          console.log(Id,Name,ConfirmedEmail,Email,LastName,Role)
+          const {Id,Name,ConfirmedEmail,Email,LastName,role} :userModel = jwtDecode(token);
+          console.log(Id,Name,ConfirmedEmail,Email,LastName,role)
           dispatch(setLoggedInUser({
-            Id,Name,ConfirmedEmail,Email,LastName,Role
+            Id,Name,ConfirmedEmail,Email,LastName,role
           }));
           navigate("/#mainsection");
         }
@@ -67,9 +67,6 @@ function Login() {
         let errorMessage = response.error.data.errorMessages[0];
         setErrorMessage(errorMessage);
       }
-
-
-
     }
 
   return (
@@ -110,14 +107,6 @@ function Login() {
                     <div>
                     <small className="text-danger">{errorMessage && errorMessage }</small>
                   </div>
-                  </div>
-
-             
-                  <div className="field">
-                    <label className="checkbox">
-                      <input type="checkbox" />
-                      Remember me
-                    </label>
                   </div>
                   <button
                     type="submit"

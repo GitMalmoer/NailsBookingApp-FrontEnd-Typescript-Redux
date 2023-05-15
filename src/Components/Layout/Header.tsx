@@ -81,44 +81,46 @@ function Header() {
               </li>
 
               <div className="d-md-flex ms-md-auto">
-                {userData?.Role == "admin" ? <><li className="nav-item">
-                  <NavLink className="nav-link" to="/adminpanel">
-                    Admin Panel
-                  </NavLink>
-                </li></> : <></>}
-                
+                {userData?.role == "admin" ? (
+                  <>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="/adminpanel">
+                        Admin Panel
+                      </NavLink>
+                    </li>
+                  </>
+                ) : (
+                  <></>
+                )}
 
                 {userData.Id ? (
                   <>
-                    <li className="nav-item dropdown">
-                      <a
-                        className="nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        Welcome, {userData.Name}
-                      </a>
-                      <ul className="dropdown-menu">
-                        <li>
-                          <NavLink className="dropdown-item" to="/userprofile">
-                            Profile
-                          </NavLink>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Another action
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            Something else here
-                          </a>
-                        </li>
-                      </ul>
-                    </li>
-
+                    <div className="dropdown">
+                      <li className="nav-item ">
+                        <a
+                          className="nav-link dropdown-toggle"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          Welcome, {userData.Name}
+                        </a>
+                        <ul className="dropdown-menu">
+                          <li>
+                            <NavLink
+                              className={({ isActive }) =>
+                                isActive
+                                  ? "text-dark font-bold dropdown-item"
+                                  : "text-muted font-thin dropdown-item"
+                              }
+                              to="/profile"
+                            >
+                              Profile
+                            </NavLink>
+                          </li>
+                        </ul>
+                      </li>
+                    </div>
                     <li className="nav-item">
                       <button className="nav-link" onClick={() => onLogout()}>
                         Logout

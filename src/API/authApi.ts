@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:7268/api/auth/" }),
+  tagTypes:["ProfilePic"],
   endpoints: (builder) => ({
     registerUser: builder.mutation({
       query: (userData) => ({
@@ -21,27 +22,65 @@ const authApi = createApi({
       }),
     }),
     getUsers: builder.query({
-        query: () => ({
-          url: "getusers",
-          method: "GET",
-        }),
+      query: () => ({
+        url: "getusers",
+        method: "GET",
+      }),
     }),
-    forgotUserPassword : builder.mutation({
+    forgotUserPassword: builder.mutation({
       query: (forgotPasswordBody) => ({
-        url:"forgotpassword",
-        method:"POST",
+        url: "forgotpassword",
+        method: "POST",
         headers: { "content-type": "application/json" },
-        body:forgotPasswordBody,
+        body: forgotPasswordBody,
       }),
     }),
     resetUserPassword: builder.mutation({
       query: (resetPasswordBody) => ({
-        url:"resetpassword",
-        method:"POST",
+        url: "resetpassword",
+        method: "POST",
         headers: { "content-type": "application/json" },
-        body:resetPasswordBody,
+        body: resetPasswordBody,
       }),
     }),
+    changeUserPassword: builder.mutation({
+      query: (changePasswordBody) => ({
+        url: "changepassword",
+        body: changePasswordBody,
+        method: "POST",
+        headers: { "content-type": "application/json" },
+      }),
+    }),
+    confirmEmail : builder.mutation({
+      query: (confirmEmailBody) => ({
+        url: "confirmemail",
+        method:"POST",
+        body:confirmEmailBody,
+        headers: { "content-type": "application/json" },
+      })
+    }),
+    getProfilePic: builder.query({
+      query:(id) => ({
+        url:`/profile/getprofilepic/${id}`,
+        method:"GET",
+      }),
+      providesTags:["ProfilePic"],
+    }),
+    changeProfilePic: builder.mutation({
+      query:(changePicBody) => ({
+        url:"/profile/changeprofilepic",
+        method:"POST",
+        headers:{"content-type": "application/json"},
+        body:changePicBody,
+      }),
+      invalidatesTags:["ProfilePic"],
+    }),
+    getAllAvatars: builder.query({
+      query:() => ({
+        url:"/profile/getallavatars",
+        method:"GET",
+      }),
+    })
   }),
 });
 
@@ -51,6 +90,11 @@ export const {
   useGetUsersQuery,
   useForgotUserPasswordMutation,
   useResetUserPasswordMutation,
+  useChangeUserPasswordMutation,
+  useConfirmEmailMutation,
+  useGetProfilePicQuery,
+  useChangeProfilePicMutation,
+  useGetAllAvatarsQuery,
 } = authApi;
 
 // export const authApiReducer = authApi.reducer; // TEST

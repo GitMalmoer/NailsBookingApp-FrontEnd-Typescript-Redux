@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import resetPasswordImg from "../../Assets/send_reset_password.svg";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useResetUserPasswordMutation } from '../../API/authApi';
 import apiResponse from '../../Interfaces/apiResponse';
 import { inputHelper } from '../../Helper';
@@ -8,9 +8,11 @@ import { inputHelper } from '../../Helper';
 
 function ResetPassword() {
    const location = useLocation();
+   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get('token');
   const [resetPassword] = useResetUserPasswordMutation();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [userInput, setUserInput] = useState({
     email:"",
@@ -24,6 +26,7 @@ function ResetPassword() {
   }
 
   const resetPasswordClick = async (e: React.FormEvent<HTMLFormElement>) => {
+    setErrorMessage("");
     e.preventDefault();
     if(token)
     {
@@ -33,6 +36,18 @@ function ResetPassword() {
         token: token,
         email: userInput.email,
       });
+      
+      if(response.data?.isSuccess)
+      {
+        navigate("/success/Your password has been reseted!")
+      } else if(response?.error?.data?.errorMessages){
+        console.log(response?.error?.data?.errorMessages);
+        setErrorMessage(response?.error?.data?.errorMessages[0])
+      }
+      else{
+        setErrorMessage("Error try again.");
+      }
+
       console.log(response);
     }
   }
@@ -98,9 +113,11 @@ function ResetPassword() {
                 </div>
                 
                 <div className="p-3">
+                {errorMessage && <p className='text-danger'>{errorMessage}</p>}
                   <button
                     className="btn btn-primary form-control w-25"
                   >Send</button>
+                  
                 </div>
               </form>
             </div>

@@ -29,13 +29,13 @@ function Header() {
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a
+          <NavLink
             className="navbar-brand p-0 m-0"
-            href="#"
+            to="/"
             style={{ height: "50px", width: "auto" }}
           >
             <img src={logo} alt="" />
-          </a>
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -67,11 +67,6 @@ function Header() {
               <li className="nav-item">
                 <NavLink className="nav-link" to="/reviews">
                   Reviews
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/projects">
-                  Our Projects
                 </NavLink>
               </li>
               <li className="nav-item">

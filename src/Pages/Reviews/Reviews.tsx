@@ -8,6 +8,7 @@ import apiResponse from '../../Interfaces/apiResponse';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../Storage/Redux/store';
 import { userModel } from '../../Interfaces';
+import MainLoader from '../../Components/Common/MainLoader';
 
 
 function Reviews() {
@@ -64,7 +65,7 @@ function Reviews() {
 					</div>
 				</div>
 			</div>
-			<div className="col-md-8">
+			<div className="col-md-6">
 
 				{/* <!--- Post Form Begins --> */}
                 <section className="card" >
@@ -98,26 +99,26 @@ function Reviews() {
 				{/* <!-- Post Begins --> */}
 				{data && !isLoading ? <>{postList?.map((post : postModel) => {
 					return <Post key={post.id} post = {post} loggedInUser = {loggedInUser}/>
-				})}</> : <>No posts</>}
+				})}</> : <><MainLoader/></>}
                 
                 {/* <!-- Post Ends --> */}
 			</div>
-			{/* <div className="col-3">
+			<div className="col-3">
 				<div className="card">
 					<div className="card-body p-3">
-						<h5 className="card-title m-0">Friends</h5>
+						<h5 className="card-title m-0">Rules</h5>
 						<div className="list-group list-group-flush">
 							<a href="#" className="list-group-item list-group-item-action text-primary">
-							Justo moto pani
+							Keep your questions simple!
 							</a>
-							<a href="#" className="list-group-item list-group-item-action text-primary">Harry consectetur</a>
-							<a href="#" className="list-group-item list-group-item-action text-primary">Dobi leo risus</a>
-							<a href="#" className="list-group-item list-group-item-action text-primary">Gadot facilisis in</a>
-							<a href="#" className="btn btn-sm btn-primary">View All</a>
+							<a className="list-group-item list-group-item-action text-primary">Be polite!</a>
+							<a  className="list-group-item list-group-item-action text-primary">Don't give out personal information!</a>
+							<a  className="list-group-item list-group-item-action text-primary border-bottom-0">No commercial posts!</a>
+							<a  className="btn btn-sm btn-primary rounded-pill">Have fun!</a>
 						</div>
 					</div>
 				</div>
-				<div className="card mt-4">
+				{/* <div className="card mt-4">
 					<div className="card-body p-3">
 						<h5 className="card-title m-0">Users</h5>
 						<div className="list-group list-group-flush">
@@ -130,8 +131,8 @@ function Reviews() {
 							<a href="#" className="btn btn-sm btn-primary">View All</a>
 						</div>
 					</div>
-				</div>
-			</div> */}
+				</div> */}
+			</div>
 		</div>
 	</div>
 </div>

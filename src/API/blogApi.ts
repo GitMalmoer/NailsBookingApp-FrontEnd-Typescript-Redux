@@ -3,7 +3,11 @@ import { url } from "inspector";
 
 const blogApi = createApi({
     reducerPath: "blogApi",
-    baseQuery: fetchBaseQuery({baseUrl:"https://localhost:7268/api/post/"}),
+    baseQuery: fetchBaseQuery({baseUrl:"https://localhost:7268/api/post/",
+prepareHeaders:(headers:Headers,api) => {
+    const token = localStorage.getItem("token");
+    token && headers.append("Authorization","Bearer " + token);
+}}),
     tagTypes: ["Posts"],
     endpoints:(builder) => ({
         getPosts : builder.query({

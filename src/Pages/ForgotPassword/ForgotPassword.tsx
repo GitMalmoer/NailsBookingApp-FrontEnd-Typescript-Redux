@@ -2,22 +2,39 @@ import React, {useState} from 'react'
 import resetPasswordImg from "../../Assets/send_reset_password.svg";
 import { useForgotUserPasswordMutation } from '../../API/authApi';
 import apiResponse from '../../Interfaces/apiResponse';
+import { useNavigate } from 'react-router-dom';
+import { MiniLoader } from '../../Components/Common';
 
 function ForgotPassword() {
+const navigate = useNavigate();
 const [forgotUserPassword] = useForgotUserPasswordMutation();
 const [emailInput, setEmailInput] = useState("");
+const [errorMessage, setErrorMessage] = useState("");
+const [dataLoading, setDataLoading] = useState(false);
 
 const handleEmailInput = (e:React.ChangeEvent<HTMLInputElement>) => {
     setEmailInput(e.target.value);
+    setErrorMessage("");
 }
 
 const handleForgotPassword = async (e : React.FormEvent<HTMLFormElement>) => {
+  setDataLoading(true);
 e.preventDefault();
 const response : apiResponse = await forgotUserPassword({
     email: emailInput,
 });
 
+if (response.data?.isSuccess)
+{
+  navigate("/success/Email with reset password link has been sent.")
+}
+else
+{
+  setErrorMessage("Error Data provided is invalid");
+}
+
 console.log(response);
+setDataLoading(false);
 }
 
   return (
@@ -54,13 +71,14 @@ console.log(response);
                       <span className="icon is-small is-left">
                         <i className="fas fa-envelope"></i>
                       </span>
+                      {errorMessage && <p className='text-danger'>{errorMessage}</p>}
                   </div>
                   
                   <div className="p-3">
-                    <button
+                  {dataLoading ? <MiniLoader/> : <button
                       className="btn btn-primary form-control w-25"
                       type="submit"
-                    >Send</button>
+                    >Send</button> }
                   </div>
                 </form>
               </div>

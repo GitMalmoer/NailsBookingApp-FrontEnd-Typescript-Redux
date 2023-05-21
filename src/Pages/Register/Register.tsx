@@ -5,6 +5,7 @@ import { useTypewriter } from "react-simple-typewriter";
 import { inputHelper } from "../../Helper";
 import { useRegisterUserMutation } from "../../API/authApi";
 import apiResponse from "../../Interfaces/apiResponse";
+import { useNavigate } from "react-router-dom";
 
 const facts = [
   "Manicure comes from the Latin words for 'hand' and 'care.'",
@@ -37,6 +38,7 @@ function Register() {
   });
   const { isDelete, isType, isDelay, isDone } = flags;
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [registerUser] = useRegisterUserMutation();
   const [errorMessage, setErrorMessage] = useState<string[]>([]);
@@ -66,8 +68,8 @@ function Register() {
       password: userInput.password,
     });
 
-    if (response?.data) {
-      console.log("Register sucessfull");
+    if (response?.data?.isSuccess) {
+      navigate("/success/Register successfull. Activation link has been sent");
     } else if (response?.error?.data?.errors) {
       console.log("specific errors obj");
 

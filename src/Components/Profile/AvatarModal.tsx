@@ -50,7 +50,7 @@ function AvatarModal(props:Props) {
           <div className="modal-body">
             <div className='row'>
                 {avatarList.map((avatar:avatarModel) => {
-                    return <div className='col-3 my-1'><button data-bs-dismiss="modal" style={{border:"none", background:"transparent"}} onClick={() => ProfilePicChange(avatar.id)}><img src={avatar.path} style={{borderRadius:"50%"}}/></button></div>
+                    return <div key={avatar.id} className='col-3 my-1'><button data-bs-dismiss="modal" style={{border:"none", background:"transparent"}} onClick={() => ProfilePicChange(avatar.id)}><img src={avatar.path} style={{borderRadius:"50%"}}/></button></div>
                 })}
 
             </div>

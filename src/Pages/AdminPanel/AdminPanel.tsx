@@ -5,12 +5,16 @@ import { errorLogModel, userModel } from "../../Interfaces";
 import { useGetErrorLogsQuery } from "../../API/logsApi";
 import ErrorDetailsModal from "../../Components/AdminPanel/ErrorDetailsModal";
 import withAdminAuth from "../../HOC/withAdminAuth";
+import { useGetMessagesQuery } from "../../API/questionApi";
+import emailMessageModel from "../../Interfaces/emailMessageModel";
 
 function AdminPanel() {
   const { data, isLoading } = useGetUsersQuery(null);
   const [userList, setUserList] = useState<userModel[]>([]);
   const [errorList, setErrorList] = useState<errorLogModel[]>([]);
+  const [messagesList, setMessagesList] = useState<emailMessageModel[]>([]);
   const errorLogsQuery = useGetErrorLogsQuery(null);
+  const messagesQuery = useGetMessagesQuery(null);
 
   useEffect(() => {
     if (data && !isLoading) {
@@ -24,7 +28,11 @@ function AdminPanel() {
     }
   }, [errorLogsQuery.data]);
 
-  console.log(errorList);
+  useEffect(() => {
+    if (messagesQuery.data && !messagesQuery.isLoading) {
+      setMessagesList(messagesQuery.data.result);
+    }
+  }, [messagesQuery.data]);
 
   return (
     <div className="admin-panel">
@@ -37,61 +45,28 @@ function AdminPanel() {
                 <li>
                   <a className="is-active">Dashboard</a>
                 </li>
-                <li>
-                  <a>Customers</a>
-                </li>
-                <li>
-                  <a>Other</a>
-                </li>
               </ul>
               <p className="menu-label">Administration</p>
               <ul className="menu-list">
                 <li>
-                  <a>Team Settings</a>
-                </li>
-                <li>
-                  <a>Manage Your Team</a>
+                  <a>To do</a>
                   <ul>
                     <li>
-                      <a>Members</a>
+                      <a>To do 1</a>
                     </li>
                     <li>
-                      <a>Plugins</a>
-                    </li>
-                    <li>
-                      <a>Add a member</a>
-                    </li>
-                    <li>
-                      <a>Remove a member</a>
+                      <a>To do 2</a>
                     </li>
                   </ul>
-                </li>
-                <li>
-                  <a>Invitations</a>
-                </li>
-                <li>
-                  <a>Cloud Storage Environment Settings</a>
-                </li>
-                <li>
-                  <a>Authentication</a>
-                </li>
-                <li>
-                  <a>Payments</a>
                 </li>
               </ul>
               <p className="menu-label">Transactions</p>
               <ul className="menu-list">
                 <li>
-                  <a>Payments</a>
+                  <a>To do 1</a>
                 </li>
                 <li>
-                  <a>Transfers</a>
-                </li>
-                <li>
-                  <a>Balance</a>
-                </li>
-                <li>
-                  <a>Reports</a>
+                  <a>To do 2</a>
                 </li>
               </ul>
             </aside>
@@ -107,6 +82,7 @@ function AdminPanel() {
                 </div>
               </div>
             </section>
+            {/* DASHBOARD BEGINING */}
             <section className="info-tiles">
               <div className="tile is-ancestor has-text-centered">
                 <div className="tile is-parent">
@@ -123,8 +99,8 @@ function AdminPanel() {
                 </div>
                 <div className="tile is-parent">
                   <article className="tile is-child box">
-                    <p className="title">0</p>
-                    <p className="subtitle">To do</p>
+                    <p className="title">{messagesList?.length}</p>
+                    <p className="subtitle">Emails</p>
                   </article>
                 </div>
                 <div className="tile is-parent">
@@ -135,6 +111,7 @@ function AdminPanel() {
                 </div>
               </div>
             </section>
+            {/* startcard events */}
             <div className="columns columns-admin">
               <div className="column is-12">
                 <div className="card events-card card-admin">
@@ -160,9 +137,13 @@ function AdminPanel() {
                         <tbody>
                           {errorList &&
                             errorList.map((error: errorLogModel) => {
-                                const time =  new Date(error.logged).toLocaleTimeString();
-                                const date =  new Date(error.logged).toLocaleDateString();
-                                const formatedDate = time+ " " + date;
+                              const time = new Date(
+                                error.logged
+                              ).toLocaleTimeString();
+                              const date = new Date(
+                                error.logged
+                              ).toLocaleDateString();
+                              const formatedDate = time + " " + date;
 
                               return (
                                 <tr key={error.id}>
@@ -172,7 +153,7 @@ function AdminPanel() {
                                   <td>{error.callsite}</td>
                                   <td>{formatedDate}</td>
                                   <td className="level-right">
-                                        <ErrorDetailsModal error = {error}/>
+                                    <ErrorDetailsModal error={error} />
                                   </td>
                                 </tr>
                               );
@@ -182,21 +163,63 @@ function AdminPanel() {
                     </div>
                   </div>
                   <footer className="card-footer d-flex justify-content-center">
-                    <button  className="btn btn-danger text-center">
+                    <button className="btn btn-danger text-center">
                       Clear Logs
                     </button>
                   </footer>
                 </div>
               </div>
             </div>
+            {/* DASHBOARD END */}
           </div>
         </div>
+        {/* start */}
+        <div className="row">
+          <div className="columns ">
+            <div className="column is-12">
+              <div className="card events-card card-admin">
+                <header className="card-header">
+                  <p className="card-header-title">Emails</p>
+                </header>
+                <div className="card-table">
+                  <div className="content">
+                    <table className="table is-fullwidth is-striped">
+                      <tbody>
+                        {messagesList &&
+                          messagesList.map((message: emailMessageModel) => {
+                            return (
+                              <tr key={message.id}>
+                                <td width="5%">
+                                  <i className="fa fa-envelope"></i>
+                                </td>
+                                <td>{message.id}</td>
+                                <td>{message.name}</td>
+                                <td >
+                                  {message.email}
+                                </td>
+                                <td >
+                                {message.message}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <footer className="card-footer d-flex justify-content-center">
+                </footer>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* end */}
       </div>
     </div>
   );
 }
 
-export default  withAdminAuth(AdminPanel);
+export default withAdminAuth(AdminPanel);
 
 {
   /* <div className="column is-6">

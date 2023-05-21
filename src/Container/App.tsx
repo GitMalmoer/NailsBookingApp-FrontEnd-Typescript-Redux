@@ -25,6 +25,7 @@ import MainLoader from '../Components/Common/MainLoader';
 import ChangePassword from '../Pages/ChangePassword/ChangePassword';
 import ConfirmEmail from '../Pages/ConfirmEmail/ConfirmEmail';
 import Pricing from '../Pages/Pricing/Pricing';
+import SuccessPage from '../Pages/Success/SuccessPage';
 
 function App() {
   const userData = useSelector((state:RootState) => state.userAuthStore);
@@ -73,6 +74,7 @@ const smth = () => {
        <Route path='/accessdenied' element={<AccessDenied/>} /> 
        <Route path='/changepassword' element={<ChangePassword/>} /> 
        <Route path='/confirmemail' element={<ConfirmEmail/>} /> 
+       <Route path='/success/:message?' element={<SuccessPage/>} /> 
        <Route path='*' element={<NotFound/>} /> 
     </Routes>
     <Footer/>

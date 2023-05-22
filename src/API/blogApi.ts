@@ -3,7 +3,7 @@ import { url } from "inspector";
 
 const blogApi = createApi({
     reducerPath: "blogApi",
-    baseQuery: fetchBaseQuery({baseUrl:"https://localhost:7268/api/post/",
+    baseQuery: fetchBaseQuery({baseUrl:"https://nailsbookingapi.azurewebsites.net/api/post/",
 prepareHeaders:(headers:Headers,api) => {
     const token = localStorage.getItem("token");
     token && headers.append("Authorization","Bearer " + token);

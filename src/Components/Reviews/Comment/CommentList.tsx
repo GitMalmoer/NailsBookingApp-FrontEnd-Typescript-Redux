@@ -4,6 +4,7 @@ import commentModel from "../../../Interfaces/commentModel";
 import { userModel } from "../../../Interfaces";
 import apiResponse from "../../../Interfaces/apiResponse";
 import Comment from "./Comment";
+import toastNotify from "../../../Helper/toastNotify";
 
 interface Props {
     postId: number,
@@ -42,6 +43,7 @@ function CommentList(props: Props) {
     else
     {
       console.log("You have to log in");
+      toastNotify("You must log in!","error");
     }
  
   }

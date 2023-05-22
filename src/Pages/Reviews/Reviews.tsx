@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../Storage/Redux/store';
 import { userModel } from '../../Interfaces';
 import MainLoader from '../../Components/Common/MainLoader';
+import toastNotify from '../../Helper/toastNotify';
 
 
 function Reviews() {
@@ -47,7 +48,7 @@ function Reviews() {
 		}
 		else
 		{
-			console.log("you need to log in");
+			toastNotify("You must log in!","error");
 		}
 		
 	}
@@ -105,7 +106,7 @@ function Reviews() {
                 
                 {/* <!-- Post Ends --> */}
 			</div>
-			<div className="col-3">
+			<div className="col-md-3 mt-3 mt-md-0 ">
 				<div className="card">
 					<div className="card-body p-3">
 						<h5 className="card-title m-0">Rules</h5>

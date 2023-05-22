@@ -13,6 +13,7 @@ import apiResponse from "../../../Interfaces/apiResponse";
 import { useUpdatePostMutation } from "../../../API/blogApi";
 import { inputHelper } from "../../../Helper";
 import unknownProfile from "../../../Assets/unknownprofile.svg";
+import toastNotify from "../../../Helper/toastNotify";
 
 interface Props {
   post: postModel;
@@ -28,7 +29,6 @@ function Post(props: Props) {
     {
       avatar = unknownProfile;
     }
-
 
   const postId: number = props?.post?.id;
   const [isEditing, setIsEditing] = useState(false);
@@ -89,7 +89,7 @@ function Post(props: Props) {
       });
       console.log(response);
     } else {
-      console.log("You have to log in");
+      toastNotify("You must log in","error");
     }
   };
 
@@ -98,6 +98,14 @@ function Post(props: Props) {
       applicationUserId: props.loggedInUser.Id,
       postId: props.post.id,
     });
+    if(response.data?.isSuccess)
+    {
+      toastNotify("Post deleted!","success");
+    }
+    else
+    {
+      toastNotify("There was an error during post delete!","error");
+    }
 
     console.log(response);
   };
@@ -127,9 +135,11 @@ function Post(props: Props) {
     if (response.data?.isSuccess) {
       setIsEditing(false);
       setErrorMessage("");
+      toastNotify("Post Edited!","success");
       //setUserInput((state) => ({ ...state, editInput: "" }));
     } else {
       setErrorMessage("There was an error during post update");
+      toastNotify("There was an error during post update","error");
     }
 
     console.log(response);

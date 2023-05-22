@@ -5,10 +5,10 @@ function Pricing() {
   return (
     <div className="conatiner">
       <div className="row align-items-center">
-      <div className="col-5 offset-1">
+      <div className="col-12 col-md-5 offset-md-1">
           <img src={payment}/>
         </div>
-        <div className="col-5 offset-1 p-3 m-3">
+        <div className="col-12 col-md-5 offset-md-1 p-3 m-3">
           {/* card start */}
           <table className="table table-bordered table-hover border">
             <thead>

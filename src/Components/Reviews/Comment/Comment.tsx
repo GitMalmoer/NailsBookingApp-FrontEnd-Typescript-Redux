@@ -9,6 +9,7 @@ import {
 import apiResponse from "../../../Interfaces/apiResponse";
 import { inputHelper } from "../../../Helper";
 import unknownProfile from "../../../Assets/unknownprofile.svg";
+import toastNotify from "../../../Helper/toastNotify";
 
 interface Props {
   comment: commentModel;
@@ -80,6 +81,7 @@ function Comment(props: Props) {
       });
     } else {
       console.log("You have to log in");
+      toastNotify("You must log in!","error");
     }
   };
 
@@ -105,6 +107,7 @@ function Comment(props: Props) {
   const handleEdit = async () => {
     if (userInput.editCommentInput.length >= 300) {
       setErrorMessage("Comment content cannot be longer than 300 letters.");
+      toastNotify("Comment content cannot be longer than 300 letters!","error");
       return null;
     }
 
@@ -116,6 +119,7 @@ function Comment(props: Props) {
     if (response.data?.isSuccess) {
       setErrorMessage("");
       setIsEditingComment(false);
+      toastNotify("Comment Edited!","success");
     } else {
       setErrorMessage("There was an error during comment update.");
     }
@@ -160,7 +164,6 @@ function Comment(props: Props) {
                 <div className="dropdown">
                   <a
                     className=""
-                    href="#"
                     role="button"
                     id="dropdownMenuLink"
                     data-bs-toggle="dropdown"

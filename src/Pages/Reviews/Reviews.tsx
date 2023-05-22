@@ -25,7 +25,7 @@ function Reviews() {
 			setPostList(data.result);
 			console.log(data.result);
 		}
-	},[isLoading,data])
+	},[data])
 
 	const handleChangePostContent = (e : React.ChangeEvent<HTMLTextAreaElement>) => {
 		setPostContent(e.target.value);
@@ -97,9 +97,11 @@ function Reviews() {
                 {/* <!--- Post Form Ends --> */}
 
 				{/* <!-- Post Begins --> */}
-				{data && !isLoading ? <>{postList?.map((post : postModel) => {
+				{data && !isLoading && <>{postList?.map((post : postModel) => {
 					return <Post key={post.id} post = {post} loggedInUser = {loggedInUser}/>
-				})}</> : <><MainLoader/></>}
+				})}</>}
+				{!data && !isLoading && <h1 className='text-center mt-5'>No posts yet</h1>} 
+				{isLoading && <MainLoader/>}
                 
                 {/* <!-- Post Ends --> */}
 			</div>

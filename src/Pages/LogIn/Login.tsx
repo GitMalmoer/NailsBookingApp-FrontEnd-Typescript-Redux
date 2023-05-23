@@ -39,13 +39,10 @@ function Login() {
     const handleLogin = async (e:any) =>{
       e.preventDefault();
       setIsTyping(false);
-      //console.log(userInput);
       const response : apiResponse = await loginUser({
         username:userInput.email,
         password:userInput.password
       });
-
-      console.log(response);
 
       if(response.data)
       {
@@ -54,7 +51,6 @@ function Login() {
         {
           localStorage.setItem("token",token);
           const {Id,Name,ConfirmedEmail,Email,LastName,role} :userModel = jwtDecode(token);
-          console.log(Id,Name,ConfirmedEmail,Email,LastName,role)
           dispatch(setLoggedInUser({
             Id,Name,ConfirmedEmail,Email,LastName,role
           }));

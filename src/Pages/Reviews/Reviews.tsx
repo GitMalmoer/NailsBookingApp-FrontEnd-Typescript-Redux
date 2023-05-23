@@ -24,7 +24,6 @@ function Reviews() {
 		if(!isLoading && data)
 		{
 			setPostList(data.result);
-			console.log(data.result);
 		}
 	},[data])
 
@@ -40,7 +39,6 @@ function Reviews() {
 				applicationUserId :loggedInUser.Id,
 				content :postContent,
 			});
-			console.log(response);
 			if(response.data?.isSuccess)
 			{
 				setPostContent("");

@@ -36,7 +36,6 @@ function App() {
   useEffect(() => {
     setIsLoading(true);
     const localStorageToken : any = localStorage.getItem("token");
-    console.log("App has been rendered")
     if(localStorageToken)
     {
       const {ConfirmedEmail,Email,Id,LastName,Name,role} : userModel = jwtDecode(localStorageToken);
@@ -46,17 +45,12 @@ function App() {
   },[])
 
   if (isLoading) {
-    console.log("loading")
     return <div><MainLoader/></div>
   }
 
-const smth = () => {
-  console.log(userData);
-}
   return (
     <div className="App">
     <Header />
-      {/* <button style={{position:"absolute"}} onClick={() => smth()}>asdsa</button> */}
     <Routes>
       <Route path="/" element={<Home />} ></Route>
       <Route path="/home" element={<Home />}></Route>

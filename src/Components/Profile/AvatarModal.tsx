@@ -14,7 +14,6 @@ function AvatarModal(props:Props) {
     const {data,isLoading} = useGetAllAvatarsQuery(null);
     const [avatarList, setAvatarsList] = useState<avatarModel[]>([]);
     const {userDataId} = props
-    console.log(userDataId);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {

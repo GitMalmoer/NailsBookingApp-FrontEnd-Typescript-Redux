@@ -80,7 +80,6 @@ function Comment(props: Props) {
         commentId: props.comment.id,
       });
     } else {
-      console.log("You have to log in");
       toastNotify("You must log in!","error");
     }
   };
@@ -91,7 +90,15 @@ function Comment(props: Props) {
         applicationUserId: props.loggedInUser.Id,
         commentId: props.comment.id,
       });
-      console.log(response);
+
+      if(response.data?.isSuccess)
+      {
+        toastNotify("Comment Deleted!","success");
+      }
+      else
+      {
+        toastNotify("Error during comment delete!","error");
+      }
     }
   };
 
@@ -122,8 +129,8 @@ function Comment(props: Props) {
       toastNotify("Comment Edited!","success");
     } else {
       setErrorMessage("There was an error during comment update.");
+      toastNotify("Error during comment update!","error");
     }
-    console.log(response);
   };
 
   const handleCancelEdit = () => {

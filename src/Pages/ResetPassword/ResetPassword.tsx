@@ -41,14 +41,12 @@ function ResetPassword() {
       {
         navigate("/success/Your password has been reseted!")
       } else if(response?.error?.data?.errorMessages){
-        console.log(response?.error?.data?.errorMessages);
         setErrorMessage(response?.error?.data?.errorMessages[0])
       }
       else{
         setErrorMessage("Error try again.");
       }
 
-      console.log(response);
     }
   }
 

@@ -21,10 +21,6 @@ function Header() {
     dispatch(setLoggedInUser(emptyUserState));
   };
 
-  useEffect(() => {
-    //console.log("Header Rendered");
-  }, []);
-
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">

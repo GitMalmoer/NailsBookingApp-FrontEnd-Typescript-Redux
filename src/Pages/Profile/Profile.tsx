@@ -24,7 +24,6 @@ function Profile() {
     if (!userData || !userData.Id) {
       navigate("/login");
     }
-    console.log(userData);
   }, [userData]);
 
 

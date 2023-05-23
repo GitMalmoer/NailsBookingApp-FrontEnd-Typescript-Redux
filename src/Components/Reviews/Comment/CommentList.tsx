@@ -38,11 +38,9 @@ function CommentList(props: Props) {
         commentContent: commentInput,
       });
       setCommentInput("");
-      console.log(response);
     }
     else
     {
-      console.log("You have to log in");
       toastNotify("You must log in!","error");
     }
  

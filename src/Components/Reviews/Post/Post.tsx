@@ -87,7 +87,6 @@ function Post(props: Props) {
         postId: props.post.id,
         commentId: 0,
       });
-      console.log(response);
     } else {
       toastNotify("You must log in","error");
     }
@@ -106,8 +105,6 @@ function Post(props: Props) {
     {
       toastNotify("There was an error during post delete!","error");
     }
-
-    console.log(response);
   };
 
   const editInputChange = (
@@ -141,8 +138,6 @@ function Post(props: Props) {
       setErrorMessage("There was an error during post update");
       toastNotify("There was an error during post update","error");
     }
-
-    console.log(response);
   };
 
   const handleCancelEdit = () => {

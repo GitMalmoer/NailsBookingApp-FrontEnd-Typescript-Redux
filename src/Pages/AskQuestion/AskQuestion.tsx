@@ -49,10 +49,6 @@ function AskQuestion() {
       
       setErrorMessage(errors);
     }
-
-
-
-    console.log(response);
     setIsLoading(false);
   };
 

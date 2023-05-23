@@ -71,7 +71,6 @@ function Register() {
     if (response?.data?.isSuccess) {
       navigate("/success/Register successfull. Activation link has been sent");
     } else if (response?.error?.data?.errors) {
-      console.log("specific errors obj");
 
       const errorsArrays = Object.keys(response.error.data.errors).map((key) => ({
         name: key,
@@ -93,9 +92,7 @@ function Register() {
   };
 
   useEffect(() => {
-    console.log("change effect");
     if (errorMessage) {
-      console.log(errorMessage);
     }
   }, [errorMessage]);
 

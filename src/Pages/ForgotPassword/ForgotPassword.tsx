@@ -33,7 +33,6 @@ else
   setErrorMessage("Error Data provided is invalid");
 }
 
-console.log(response);
 setDataLoading(false);
 }
 

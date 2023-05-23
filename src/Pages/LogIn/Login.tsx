@@ -11,10 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoggedInUser } from "../../Storage/Redux/userAuthSlice";
 import { RootState } from "../../Storage/Redux/store";
 import { NavLink } from "react-router-dom";
+import MainLoader from "../../Components/Common/MainLoader";
+import { MiniLoader } from "../../Components/Common";
 let logo = require("../../Assets/logotransp.png");
 
 function Login() {
     let navigate = useNavigate();
+    const [loading,setLoading] = useState(false);
     const [loginUser] = useLoginUserMutation();
     const [isTyping,setIsTyping] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
@@ -37,6 +40,7 @@ function Login() {
     }
 
     const handleLogin = async (e:any) =>{
+      setLoading(true);
       e.preventDefault();
       setIsTyping(false);
       const response : apiResponse = await loginUser({
@@ -63,6 +67,7 @@ function Login() {
         let errorMessage = response.error.data.errorMessages[0];
         setErrorMessage(errorMessage);
       }
+      setLoading(false);
     }
 
   return (
@@ -108,7 +113,7 @@ function Login() {
                     type="submit"
                     className="button is-block is-info is-large is-fullwidth"
                   >
-                    Login <i className="fa fa-sign-in" aria-hidden="true"></i>
+                    {loading ? <><MiniLoader/></> : <>Login<i className="fa fa-sign-in" aria-hidden="true"></i></>} 
                   </button>
                   {/* hashlink is a solution to React Router's issue of not scrolling to #hash-fragments */}
                   <HashLink

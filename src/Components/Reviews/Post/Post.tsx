@@ -283,11 +283,12 @@ function Post(props: Props) {
                     {calculateCommentsCount()} Comment
                   </a>
                 </li>
-                <li className="list-group-item flex-fill text-center p-0 px-lg-2 border border-right-0 border-top-0 border-bottom-0 ">
+                {/* TO DO SHARE - COPY TO CLIPBOARD */}
+                {/* <li className="list-group-item flex-fill text-center p-0 px-lg-2 border border-right-0 border-top-0 border-bottom-0 ">
                   <a className="small text-decoration-none" href="#">
                     <i className="fas fa-share"></i> Share
                   </a>
-                </li>
+                </li> */}
               </ul>
             </div>
 

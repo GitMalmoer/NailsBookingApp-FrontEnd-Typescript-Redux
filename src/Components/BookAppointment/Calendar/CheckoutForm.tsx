@@ -61,6 +61,7 @@ export default function CheckoutForm(props: props) {
     if(paymentIntent?.status === "succeeded")
     {
         navigate("/success/You payment has been successfull!")
+        
     }
 
     setIsLoading(false);

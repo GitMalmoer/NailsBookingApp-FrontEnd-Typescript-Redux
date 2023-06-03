@@ -7,7 +7,7 @@ function BookAppointment() {
   return (
     <div className="appointmentContainer">
       <div
-        className="Appointment col-12 p-5"
+        className="Appointment col-12 p-1"
         style={{ overflowX: "hidden", overflowY: "hidden" }}
       >
         <BookingCalendar></BookingCalendar>

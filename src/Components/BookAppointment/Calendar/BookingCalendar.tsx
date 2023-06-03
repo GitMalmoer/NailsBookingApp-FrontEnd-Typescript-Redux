@@ -118,7 +118,7 @@ function BookingCalendar() {
               <div className="card-body">
                 <div className="card-text">
                   <div className="row ">
-                    <div className="col-6">
+                    <div className="col-12 col-md-6">
                       <div className="card">
                         <div className="card-body">
                         <h5 className="card-title">Details</h5>
@@ -132,7 +132,7 @@ function BookingCalendar() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-6 ">
+                    <div className="col-12 col-md-6 mt-2 mt-md-0 ">
                       <Payment 
                         stripePaymentIntentId={stripePaymentIntentId}
                         clientSecret={clientSecret}
@@ -146,6 +146,7 @@ function BookingCalendar() {
         </>
       ) : (
         <>
+        {/* WHEN NOT PAYING */}
           <div
             className={`${
               !isCollapsed
@@ -167,7 +168,7 @@ function BookingCalendar() {
                         <div
                           className={`${
                             !isCollapsed
-                              ? "col-12 col-md-10 offset-1"
+                              ? "col-12 col-md-10 offset-md-1"
                               : "col-12 col-md-5 offset-md-1"
                           }`}
                         >

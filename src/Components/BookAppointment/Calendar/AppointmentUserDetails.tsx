@@ -63,7 +63,7 @@ function AppointmentUserDetails(props : props) {
     <>
       {/* SECOND SELECTION */}
       <form onSubmit={(e) => handleConfirmAppointment(e)}>
-      <div className="shadow card text-center mx-auto w-50 m-2 mt-0 ">
+      <div className="shadow card text-center mx-auto col col-8 col-md-6 mx-auto m-2 mt-0 ">
         <div className="card-body ">
           <p>
             <i className="fa-regular fa-calendar"></i> Selected Date

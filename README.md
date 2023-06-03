@@ -6,6 +6,8 @@ Backend: https://nailsbookingapi.azurewebsites.net/index.html
 ![image](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/5d8b223a-082c-4745-8da0-1ef16e26e3b3)
 **Calendly like booking feature WITH STRIPE PAYMENT! :**
 ![image](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/dab8fc43-e696-4372-b8ad-7061424c80d1)
+**Stripe booking confirmation**
+![image](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/298b8e43-756a-4a1c-901b-7b2ac751b9c0)
 **Blog**
 ![image](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/0350bc52-409d-4a36-aae5-a272934a85dd)
 **SMTP(Simple mail transfer protocol) Messages**

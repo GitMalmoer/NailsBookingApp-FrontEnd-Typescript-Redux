@@ -11,6 +11,7 @@ Features:
 - Admin Panel
 - Sign up, login, forget password, reset password and email authentication(token send to users email with SMTP), 
 - Profile editing, Avatar change
+- All hosted and deployed on azure and netlify
 
 **Home**
 ![image](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/5d8b223a-082c-4745-8da0-1ef16e26e3b3)

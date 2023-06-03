@@ -9,7 +9,8 @@ Features:
 - React, Typescript used in frontend. Communication with api with redux RTK toolkit mutations and querries
 - Ask question page - sending email with SMTP protocol
 - Admin Panel
-- Sign up, login, forget password and email authentication(token send to users email with SMTP), 
+- Sign up, login, forget password, reset password and email authentication(token send to users email with SMTP), 
+- Profile editing, Avatar change
 
 **Home**
 ![image](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/5d8b223a-082c-4745-8da0-1ef16e26e3b3)

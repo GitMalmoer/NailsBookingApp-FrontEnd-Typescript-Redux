@@ -4,7 +4,7 @@ Backend: https://nailsbookingapi.azurewebsites.net/index.html
 
 **Home**
 ![image](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/5d8b223a-082c-4745-8da0-1ef16e26e3b3)
-**Calendly like booking feature:**
+**Calendly like booking feature WITH STRIPE PAYMENT! :**
 ![image](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/dab8fc43-e696-4372-b8ad-7061424c80d1)
 **Blog**
 ![image](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/0350bc52-409d-4a36-aae5-a272934a85dd)

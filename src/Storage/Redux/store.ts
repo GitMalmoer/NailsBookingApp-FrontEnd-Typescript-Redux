@@ -4,6 +4,7 @@ import { userAuthReducer } from "./userAuthSlice";
 import questionApi from "../../API/questionApi";
 import blogApi from "../../API/blogApi";
 import logsApi from "../../API/logsApi";
+import bookingApi from "../../API/bookingApi";
 
 const store = configureStore({
   reducer: {
@@ -11,11 +12,12 @@ const store = configureStore({
     [questionApi.reducerPath] : questionApi.reducer,
     [blogApi.reducerPath] : blogApi.reducer,
     [logsApi.reducerPath] : logsApi.reducer,
+    [bookingApi.reducerPath] : bookingApi.reducer,
     userAuthStore : userAuthReducer,
     
   },
   middleware: (getDefaultMiddleware) => 
-      getDefaultMiddleware().concat(authApi.middleware).concat(questionApi.middleware).concat(blogApi.middleware).concat(logsApi.middleware),
+      getDefaultMiddleware().concat(authApi.middleware).concat(questionApi.middleware).concat(blogApi.middleware).concat(logsApi.middleware).concat(bookingApi.middleware),
 });
 
 

@@ -1,0 +1,6 @@
+button:disabled {
+    text-decoration: line-through;
+    position: relative;
+    color: gray;
+  }
+  

@@ -2,6 +2,15 @@ Frontend: https://nailsbookingapp.netlify.app/
 
 Backend: https://nailsbookingapi.azurewebsites.net/index.html
 
+Features:
+- Home page with animations AOS
+- Booking feature with stripe payment, after payment succeeded appointment is stored in MSSQL with Entity Framework
+- Revievs page - blog with posting, commenting and liking features
+- React, Typescript used in frontend. Communication with api with redux RTK toolkit mutations and querries
+- Ask question page - sending email with SMTP protocol
+- Admin Panel
+- Sign up, login, forget password and email authentication(token send to users email with SMTP), 
+
 **Home**
 ![image](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/5d8b223a-082c-4745-8da0-1ef16e26e3b3)
 **Calendly like booking feature WITH STRIPE PAYMENT! :**

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
 import "./Calendar.css";
 import styles from "./BookingCalendar.module.css";
-import { useCreateAppointmentMutation, useGetAvailableTimesQuery } from "../../../API/bookingApi";
+import { useCreateAppointmentMutation, useGetAvailableTimesQuery, useInitiatePaymentMutation } from "../../../API/bookingApi";
 import { inputHelper } from "../../../Helper";
 import apiResponse from "../../../Interfaces/apiResponse";
 
@@ -13,16 +13,17 @@ function BookingCalendar() {
   const [pickedTime, setPickedTime] = useState("");
   const [availableTimes,setAvailableTimes] = useState<string[]>([]);
   const [loadingTimes, setLoadingTimes] = useState(false);
+  
   const [userInput, setUserInput] = useState({
     Name: "",
     LastName: "",
     Email: "",
     Phone: "",
-    Service:"1"
+    Service:1,
   });
   //another way with param name: {stringDate:selectedDateString}
   const getAvailableTimesQuery = useGetAvailableTimesQuery(selectedDateString);
-  const [createAppointment] = useCreateAppointmentMutation();
+  const [initiatePayment] = useInitiatePaymentMutation();
 
   const handleUserInput = (e:React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const tempData = inputHelper(e,userInput);
@@ -100,7 +101,7 @@ function BookingCalendar() {
       ServiceValue:userInput.Service,
     }
 
-    const response: apiResponse = await createAppointment(formBody);
+    const response: apiResponse = await initiatePayment(formBody);
 
     if (response.data?.isSuccess) {
       console.log(response);
@@ -194,96 +195,7 @@ function BookingCalendar() {
               </>
             ) : (
               <>
-                {/* SECOND SELECTION */}
-                <form onSubmit={(e) => handleConfirmAppointment(e)}>
-                  <div className="shadow card text-center mx-auto w-50 m-2 mt-0 ">
-                    <div className="card-body ">
-                      <p>
-                        <i className="fa-regular fa-calendar"></i> Selected Date
-                        : {selectedDate.toLocaleDateString()}
-                      </p>
-                      <p>
-                        <i className="fa-regular fa-clock"></i> Selected Time :{" "}
-                        {pickedTime}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="d-flex">
-                    <input
-                      className="form-control me-2 "
-                      type="text"
-                      name="Name"
-                      onChange={(e) => handleUserInput(e)}
-                      value={userInput.Name}
-                      placeholder="Name"
-                      required
-                    />
-                    <input
-                      className="form-control"
-                      type="text"
-                      onChange={(e) => handleUserInput(e)}
-                      name="LastName"
-                      value={userInput.LastName}
-                      placeholder="Last Name"
-                      required
-                    />
-                  </div>
-                  <input
-                    className="form-control my-2"
-                    type="text"
-                    onChange={(e) => handleUserInput(e)}
-                    name="Email"
-                    value={userInput.Email}
-                    placeholder="Email"
-                    required
-                  />
-                  <input
-                    className="form-control my-2"
-                    type="text"
-                    name="Phone"
-                    value={userInput.Phone}
-                    onChange={(e) => handleUserInput(e)}
-                    placeholder="Phone"
-                    required
-                  />
-
-                  <select
-                    className="form-select"
-                    onChange={(e) => handleUserInput(e)}
-                    value={userInput.Service}
-                    name="Service"
-                    aria-label="Default select example"
-                    required
-                  >
-                    <optgroup label="Pick a service">
-                      <option value="1">Manicure</option>
-                      <option value="2">Manicure Long</option>
-                      <option value="3">Three</option>
-                    </optgroup>
-                  </select>
-
-                  <div className="d-flex justify-content-center mt-2">
-                    <button
-                      style={{ borderRadius: "23px" }}
-                      onClick={() => {
-                        setPickedTime("");
-                        setCollapse(false);
-                      }}
-                      className="btn btn-secondary w-50 me-2"
-                    >
-                      Go Back
-                    </button>
-                    <button
-                      style={{ borderRadius: "23px" }}
-                      type="submit"
-                      className="btn btn-success w-50 ms-2"
-                    >
-                      Confirm Appointment
-                    </button>
-                  </div>
-                </form>
-                {/* END OF SECOND SELECTION */}
+              
               </>
             )}
           </div>

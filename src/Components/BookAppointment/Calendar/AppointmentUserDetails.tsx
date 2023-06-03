@@ -10,10 +10,25 @@ interface props{
     setPickedTime : React.Dispatch<React.SetStateAction<string>>;
     setCollapse:React.Dispatch<React.SetStateAction<boolean>>;
     handleUserInput: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+    setIsPaying: React.Dispatch<React.SetStateAction<boolean>>;
+    setClientSecret: React.Dispatch<React.SetStateAction<string>>;
+    setStripePaymentIntentId :React.Dispatch<React.SetStateAction<string>>;
+    setPrice : React.Dispatch<React.SetStateAction<string>>;
 }
 
 function AppointmentUserDetails(props : props) {
-    const {userInput,pickedTime,selectedDate,selectedDateString,setPickedTime,setCollapse} = props;
+    const {
+      userInput,
+      pickedTime,
+      selectedDate,
+      selectedDateString,
+      setPickedTime,
+      setCollapse,
+      setIsPaying,
+      setClientSecret,
+      setStripePaymentIntentId,
+      setPrice,
+    } = props;
     
     const [initiatePayment] = useInitiatePaymentMutation();
     const handleConfirmAppointment = async (e : any) => {
@@ -32,8 +47,14 @@ function AppointmentUserDetails(props : props) {
         const response: apiResponse = await initiatePayment(formBody);
     
         if (response.data?.isSuccess) {
+          setClientSecret(response.data?.result?.clientSecret ?? "");
+          setStripePaymentIntentId(response.data?.result?.stripePaymentIntentId ?? "")
+          setPrice(response.data?.result?.price ?? "")
+          setIsPaying(true);
+
           console.log(response);
         } else {
+          setIsPaying(false);
           console.log(response);
         }
       }

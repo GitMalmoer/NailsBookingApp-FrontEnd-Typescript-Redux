@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const bookingApi = createApi({
   reducerPath: "bookingApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://localhost:7268/api/booking/",
+    baseUrl: "https://nailsbookingapi.azurewebsites.net/api/booking/",
   }),
   tagTypes:["times"],
   endpoints: (builder) => ({

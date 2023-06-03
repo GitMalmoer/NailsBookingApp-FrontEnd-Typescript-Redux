@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { Root } from "react-dom/client";
 import { NavLink, Navigate, useNavigate } from "react-router-dom";
-import "./Header.css";
 import { log } from "console";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../Storage/Redux/store";
@@ -28,7 +27,7 @@ function Header() {
           <NavLink
             className="navbar-brand p-0 m-0"
             to="/"
-            style={{ height: "50px", width: "auto" }}
+            style={{ height: "50px", width: "50px" }}
           >
             <img src={logo} alt="" />
           </NavLink>

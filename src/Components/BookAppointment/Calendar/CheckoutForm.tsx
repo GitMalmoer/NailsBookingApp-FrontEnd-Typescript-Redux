@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import createAppointment from "../../../Interfaces/createAppointmentModel";
 import { useCreateAppointmentMutation } from "../../../API/bookingApi";
 import apiResponse from "../../../Interfaces/apiResponse";
+import { MiniLoader } from "../../Common";
 
 interface props {
   clientSecret: string;
@@ -35,8 +36,6 @@ export default function CheckoutForm(props: props) {
     }
 
   }, []);
-
-
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -90,13 +89,11 @@ export default function CheckoutForm(props: props) {
             disabled={isLoading || !stripe || !elements}
             id="submit"
           >
-            <span id="button-text">
               {isLoading ? (
-                <div className="spinner" id="spinner"></div>
+                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
               ) : (
                 "Pay now"
               )}
-            </span>
           </button>
           {/* Show any error or success messages */}
           {message && <div id="payment-message">{message}</div>}

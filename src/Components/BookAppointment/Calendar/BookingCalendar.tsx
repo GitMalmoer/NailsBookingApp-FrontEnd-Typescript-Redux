@@ -19,8 +19,7 @@ function BookingCalendar() {
   const [pickedTime, setPickedTime] = useState("");
   const [availableTimes, setAvailableTimes] = useState<string[]>([]);
   const [loadingTimes, setLoadingTimes] = useState(false);
-  // payment
-  // end payment
+
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const [userInput, setUserInput] = useState({
@@ -39,13 +38,7 @@ function BookingCalendar() {
     const tempData = inputHelper(e, userInput);
     setUserInput(tempData);
   };
-  useEffect(() => {
-    console.log("render");
-  });
 
-  //  useEffect(() => {
-  //    console.log(userInput);
-  //  },[userInput])
 
   const currentDate: Date = new Date();
   const datemax: Date = new Date(currentDate);
@@ -194,7 +187,7 @@ function BookingCalendar() {
               </>
             )}
           </div>
-          <div className="card-footer bg-transparent border-muted">Time: </div>
+          <div className="card-footer bg-transparent border-muted">{pickedTime ? ("Pick a service and write contact information.") : "Select a date and time to book."} </div>
         </div>
       </div>
 

@@ -20,31 +20,31 @@ function Pricing() {
             <tbody>
               <tr>
                 <th scope="row">400:-</th>
-                <td>Nagelförlängning med vanlig lack</td>
+                <td>Nail extension with regular polish</td>
               </tr>
               <tr>
                 <th scope="row">450:-</th>
-                <td>Nagelförlängning med shellac</td>
+                <td>Nail extension with shellac</td>
               </tr>
               <tr>
                 <th scope="row">400:-</th>
-                <td>Nagelförstarkning av egna naglar med vanlig lack</td>
+                <td>Nail reinforcement of natural nails with regular polish</td>
               </tr>
               <tr>
                 <th scope="row">350:-</th>
-                <td>kompletering, påfyllning med vanlig lack</td>
+                <td>Completion, refill with regular polish</td>
               </tr>
               <tr>
                 <th scope="row">350:-</th>
-                <td>pedikyr med vanlig lack</td>
+                <td>Pedicure with regular polish</td>
               </tr>
               <tr>
                 <th scope="row">100:-</th>
-                <td>lagning av nagel</td>
+                <td>Nail repair</td>
               </tr>
               <tr>
                 <th scope="row">30:-/st</th>
-                <td>dekoration</td>
+                <td>Decoration</td>
               </tr>
             </tbody>
           </table>

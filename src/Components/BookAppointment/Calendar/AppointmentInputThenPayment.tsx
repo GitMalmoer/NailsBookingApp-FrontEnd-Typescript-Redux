@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useInitiatePaymentMutation } from "../../../API/bookingApi";
 import apiResponse from "../../../Interfaces/apiResponse";
 import Payment from "./Payment";
@@ -40,6 +40,7 @@ function AppointmentInputThenPayment(props: props) {
     ServiceValue: "",
     Price:"",
   });
+  const selectRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
     if (!isPaying) {
@@ -82,6 +83,15 @@ function AppointmentInputThenPayment(props: props) {
     }
   };
 
+
+  const getSelectedOption = () => {
+    if (selectRef.current) {
+      const selectedOption = selectRef.current.options[selectRef.current.selectedIndex];
+      const selectedText = selectedOption.textContent;
+      return selectedText;
+    }
+  }
+
   return (
     <>
       {isPaying ? (
@@ -98,7 +108,9 @@ function AppointmentInputThenPayment(props: props) {
                     Name: {userInput?.Name} {userInput?.LastName}
                   </p>
                   <p>Phone: {userInput?.Phone}</p>
+                  <p>{getSelectedOption()}</p>
                   <p>Price: {price} SEK</p>
+
                   <button
                     style={{ borderRadius: "23px" }}
                     onClick={() => setIsPaying(false)}
@@ -111,7 +123,7 @@ function AppointmentInputThenPayment(props: props) {
             </div>
             <div className="col-12 col-md-6 mt-2 mt-md-0 ">
               <Payment
-                createAppointmentData = {createAppointmentData}
+                createAppointmentData={createAppointmentData}
                 stripePaymentIntentId={stripePaymentIntentId}
                 clientSecret={clientSecret}
               ></Payment>
@@ -181,11 +193,24 @@ function AppointmentInputThenPayment(props: props) {
               name="Service"
               aria-label="Default select example"
               required
+              ref={selectRef}
             >
               <optgroup label="Pick a service">
-                <option value="1">Manicure</option>
-                <option value="2">Manicure Long</option>
-                <option value="3">Three</option>
+                <option value="1">
+                  Nail extension with regular polish - 400 SEK
+                </option>
+                <option value="2">Nail extension with shellac - 450 SEK</option>
+                <option value="3">
+                  Nail reinforcement of natural nails with regular polish - 400
+                  SEK
+                </option>
+                <option value="4">
+                  Completion, refill with regular polish - 350 SEK
+                </option>
+                <option value="5">
+                  Pedicure with regular polish - 350 SEK
+                </option>
+                <option value="6">Nail repair - 100 SEK</option>
               </optgroup>
             </select>
 

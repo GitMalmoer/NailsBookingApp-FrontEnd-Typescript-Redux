@@ -125,7 +125,7 @@ function AppointmentUserDetails(props : props) {
           type="submit"
           className="btn btn-success w-50 ms-2"
         >
-          Confirm Appointment
+          Proceed to payment
         </button>
       </div>
     </form>

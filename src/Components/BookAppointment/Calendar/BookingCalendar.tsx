@@ -15,7 +15,8 @@ function BookingCalendar() {
   const [isPayingTime, setIsPayingTime] = useState(false);
   const [availableTimes,setAvailableTimes] = useState<string[]>([]);
   const [loadingTimes, setLoadingTimes] = useState(false);
-  
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
   const [userInput, setUserInput] = useState({
     Name: "",
     LastName: "",
@@ -43,7 +44,7 @@ function BookingCalendar() {
   const datemax: Date = new Date(currentDate);
   datemax.setDate(currentDate.getDate() + 7);
 
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
 
   useEffect(() => {
     // setting available times string array when query data changes
@@ -90,10 +91,10 @@ function BookingCalendar() {
     console.log(buttonContent);
   };
 
- 
-
   return (
     <div className="row">
+
+      {isPayingTime ? <></> :  <>
       <div
         className={`${
           !isCollapsed
@@ -193,6 +194,8 @@ function BookingCalendar() {
           <div className="card-footer bg-transparent border-muted">Time: </div>
         </div>
       </div>
+      </>}
+      
 
       <button
         hidden

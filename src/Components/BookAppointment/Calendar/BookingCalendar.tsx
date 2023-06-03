@@ -12,6 +12,7 @@ function BookingCalendar() {
   const [selectedDateString,setSelectedDateString] = useState("");
   const [isCollapsed, setCollapse] = useState(false);
   const [pickedTime, setPickedTime] = useState("");
+  const [isPayingTime, setIsPayingTime] = useState(false);
   const [availableTimes,setAvailableTimes] = useState<string[]>([]);
   const [loadingTimes, setLoadingTimes] = useState(false);
   
@@ -32,11 +33,11 @@ function BookingCalendar() {
   }
   useEffect(() => {
     console.log("render");
-  },[])
+  })
 
-  // useEffect(() => {
-  //   console.log(userInput);
-  // },[userInput])
+  //  useEffect(() => {
+  //    console.log(userInput);
+  //  },[userInput])
 
   const currentDate: Date = new Date();
   const datemax: Date = new Date(currentDate);
@@ -175,6 +176,7 @@ function BookingCalendar() {
               </>
             ) : (
               <>
+              {/* SECOND SELECTION */}
                 <AppointmentUserDetails
                   selectedDateString={selectedDateString}
                   selectedDate={selectedDate}
@@ -184,6 +186,7 @@ function BookingCalendar() {
                   userInput={userInput}
                   handleUserInput={handleUserInput}
                 ></AppointmentUserDetails>
+                {/* END OF SECOND SELECTION */}
               </>
             )}
           </div>

@@ -13,11 +13,9 @@ interface props{
 }
 
 function AppointmentUserDetails(props : props) {
-
     const {userInput,pickedTime,selectedDate,selectedDateString,setPickedTime,setCollapse} = props;
     
     const [initiatePayment] = useInitiatePaymentMutation();
-
     const handleConfirmAppointment = async (e : any) => {
         e.preventDefault();
     

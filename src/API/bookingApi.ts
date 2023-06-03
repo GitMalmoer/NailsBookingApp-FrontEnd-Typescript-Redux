@@ -31,7 +31,6 @@ const bookingApi = createApi({
         headers: {"content-type":"application/json"},
         body: data,
       }),
-      invalidatesTags:["times"],
     }),
   }),
 });

@@ -6,18 +6,24 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { useNavigate } from "react-router-dom";
+import createAppointment from "../../../Interfaces/createAppointmentModel";
+import { useCreateAppointmentMutation } from "../../../API/bookingApi";
+import apiResponse from "../../../Interfaces/apiResponse";
 
 interface props {
   clientSecret: string;
+  createAppointmentData : createAppointment,
 }
+
 export default function CheckoutForm(props: props) {
-  const { clientSecret } = props;
+  const { clientSecret, createAppointmentData } = props;
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
 
   const [message, setMessage] = useState<null | string | undefined>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [createAppointment] = useCreateAppointmentMutation();
 
   useEffect(() => {
     if (!stripe) {
@@ -27,7 +33,10 @@ export default function CheckoutForm(props: props) {
     if (!clientSecret) {
       return;
     }
+
   }, []);
+
+
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -55,15 +64,18 @@ export default function CheckoutForm(props: props) {
     // redirected to the `return_url`.
     if (error?.type === "card_error" || error?.type === "validation_error") {
       setMessage(error.message);
-    } else {
+    } else if(error) {
       setMessage("An unexpected error occurred.");
     }
     if(paymentIntent?.status === "succeeded")
     {
+        const createResponse : apiResponse = await createAppointment(createAppointmentData);
+        if(createResponse.error)
+        {
+            console.log(createResponse);
+        }
         navigate("/success/You payment has been successfull!")
-        
     }
-
     setIsLoading(false);
   };
 

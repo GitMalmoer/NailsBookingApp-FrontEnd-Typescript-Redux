@@ -2,33 +2,24 @@ import React, { useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
 import "./Calendar.css";
 import styles from "./BookingCalendar.module.css";
-import { useCreateAppointmentMutation, useGetAvailableTimesQuery, useInitiatePaymentMutation } from "../../../API/bookingApi";
+import {
+  useCreateAppointmentMutation,
+  useGetAvailableTimesQuery,
+  useInitiatePaymentMutation,
+} from "../../../API/bookingApi";
 import { inputHelper } from "../../../Helper";
 import apiResponse from "../../../Interfaces/apiResponse";
-import AppointmentUserDetails from "./AppointmentUserDetails";
+import AppointmentInputThenPayment from "./AppointmentInputThenPayment";
 import Payment from "./Payment";
 
 function BookingCalendar() {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedDateString,setSelectedDateString] = useState("");
+  const [selectedDateString, setSelectedDateString] = useState("");
   const [isCollapsed, setCollapse] = useState(false);
   const [pickedTime, setPickedTime] = useState("");
-  const [availableTimes,setAvailableTimes] = useState<string[]>([]);
+  const [availableTimes, setAvailableTimes] = useState<string[]>([]);
   const [loadingTimes, setLoadingTimes] = useState(false);
-  // payment 
-  const [isPaying, setIsPaying] = useState(false);
-  const [clientSecret, setClientSecret] = useState("");
-  const [stripePaymentIntentId, setStripePaymentIntentId] = useState("");
-  const [price, setPrice] = useState("");
-
-  useEffect(() => {
-    if(!isPaying)
-    {
-      setClientSecret("");
-      setStripePaymentIntentId("");
-      setPrice("");
-    }
-  },[isPaying])
+  // payment
   // end payment
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
@@ -37,19 +28,20 @@ function BookingCalendar() {
     LastName: "",
     Email: "",
     Phone: "",
-    Service:1,
+    Service: 1,
   });
   //another way with param name: {stringDate:selectedDateString}
   const getAvailableTimesQuery = useGetAvailableTimesQuery(selectedDateString);
 
-
-  const handleUserInput = (e:React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const tempData = inputHelper(e,userInput);
+  const handleUserInput = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const tempData = inputHelper(e, userInput);
     setUserInput(tempData);
-  }
+  };
   useEffect(() => {
     console.log("render");
-  })
+  });
 
   //  useEffect(() => {
   //    console.log(userInput);
@@ -58,8 +50,6 @@ function BookingCalendar() {
   const currentDate: Date = new Date();
   const datemax: Date = new Date(currentDate);
   datemax.setDate(currentDate.getDate() + 7);
-
-
 
   useEffect(() => {
     // setting available times string array when query data changes
@@ -71,19 +61,19 @@ function BookingCalendar() {
       }
     }
   }, [getAvailableTimesQuery.data]);
-  
+
   useEffect(() => {
     // refetching data when selection is changed
     const fetchData = async () => {
       await getAvailableTimesQuery.refetch();
     };
-    
+
     fetchData();
   }, [selectedDateString]);
 
-  const handleClickDay = async (date:any) => {
-    const selection : Date = date;
-    const selectionString :string = selection.toDateString();
+  const handleClickDay = async (date: any) => {
+    const selection: Date = date;
+    const selectionString: string = selection.toDateString();
     setSelectedDate(date);
     // useeffect is on selectedDataString when this changes we make a call to api
     setSelectedDateString(selectionString);
@@ -108,152 +98,105 @@ function BookingCalendar() {
 
   return (
     <div className="row">
-      {isPaying ? (
-        <>
-          <div className="col-12 col-md-6 offset-md-3">
-            <div className="shadow card border-muted mb-3">
-              <div className="card-header bg-transparent border-muted">
-                Book Appointment
-              </div>
-              <div className="card-body">
+      <div
+        className={`${
+          !isCollapsed
+            ? "col-12 col-md-4 offset-md-4"
+            : "col-12 col-md-6 offset-md-3"
+        }`}
+      >
+        <div className="shadow card border-muted mb-3">
+          <div className="card-header bg-transparent border-muted">
+            Book Appointment
+          </div>
+          <div className="card-body ">
+            {!pickedTime ? (
+              <>
+                {/* FIRST SELECTION */}
+                <h5 className="card-title"></h5>
                 <div className="card-text">
-                  <div className="row ">
-                    <div className="col-12 col-md-6">
-                      <div className="card">
-                        <div className="card-body">
-                        <h5 className="card-title">Details</h5>
-                        <p>Selected Date: {selectedDateString}</p>
-                        <p>Selected Time: {pickedTime}</p>
-                        <p>Email: {userInput?.Email}</p>
-                        <p>Name: {userInput?.Name} {userInput?.LastName}</p>
-                        <p>Phone: {userInput?.Phone}</p>
-                        <p>Price: {price} SEK</p>
-                        <button style={{borderRadius:"23px"}} onClick={() => setIsPaying(false)} className="btn btn-secondary">Change Details</button>
+                  <div className="row">
+                    <div
+                      className={`${
+                        !isCollapsed
+                          ? "col-12 col-md-10 offset-md-1"
+                          : "col-12 col-md-5 offset-md-1"
+                      }`}
+                    >
+                      <Calendar
+                        className={`${styles.button}`}
+                        calendarType="US"
+                        minDate={currentDate}
+                        defaultActiveStartDate={currentDate}
+                        maxDate={datemax}
+                        next2Label={null}
+                        prev2Label={null}
+                        // onChange={onChangeCalendar}
+                        value={selectedDate}
+                        onClickDay={handleClickDay}
+                        data-bs-toggle={"collapse"}
+                        data-bs-target="#collapseExample"
+                        aria-controls="collapseExample"
+                      />
+                    </div>
+
+                    <div
+                      className={`${
+                        isCollapsed ? "col-12 col-md-5" : "col-0"
+                      } `}
+                    >
+                      <div className={`collapse`} id="collapseExample">
+                        <div className="card card-body ">
+                          <p>
+                            {selectedDate.toLocaleDateString("en-US", {
+                              weekday: "long",
+                              month: "long",
+                              day: "numeric",
+                            })}
+                          </p>
+
+                          {availableTimes && (
+                            <>
+                              {availableTimes.map((time, index) => {
+                                return (
+                                  <button
+                                    key={index}
+                                    style={{ borderRadius: "23px" }}
+                                    onClick={(e) => handlePickedTime(e)}
+                                    className="btn btn-outline-success my-1"
+                                  >
+                                    {time}
+                                  </button>
+                                );
+                              })}
+                            </>
+                          )}
                         </div>
                       </div>
-                    </div>
-                    <div className="col-12 col-md-6 mt-2 mt-md-0 ">
-                      <Payment 
-                        stripePaymentIntentId={stripePaymentIntentId}
-                        clientSecret={clientSecret}
-                      ></Payment>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+                {/* END OF FIRST SELECTION */}
+              </>
+            ) : (
+              <>
+                {/* SECOND SELECTION */}
+                <AppointmentInputThenPayment
+                  selectedDateString={selectedDateString}
+                  selectedDate={selectedDate}
+                  setCollapse={setCollapse}
+                  setPickedTime={setPickedTime}
+                  pickedTime={pickedTime}
+                  userInput={userInput}
+                  handleUserInput={handleUserInput}
+                ></AppointmentInputThenPayment>
+                {/* END OF SECOND SELECTION */}
+              </>
+            )}
           </div>
-        </>
-      ) : (
-        <>
-        {/* WHEN NOT PAYING */}
-          <div
-            className={`${
-              !isCollapsed
-                ? "col-12 col-md-4 offset-md-4"
-                : "col-12 col-md-6 offset-md-3"
-            }`}
-          >
-            <div className="shadow card border-muted mb-3">
-              <div className="card-header bg-transparent border-muted">
-                Book Appointment
-              </div>
-              <div className="card-body ">
-                {!pickedTime ? (
-                  <>
-                    {/* FIRST SELECTION */}
-                    <h5 className="card-title"></h5>
-                    <div className="card-text">
-                      <div className="row">
-                        <div
-                          className={`${
-                            !isCollapsed
-                              ? "col-12 col-md-10 offset-md-1"
-                              : "col-12 col-md-5 offset-md-1"
-                          }`}
-                        >
-                          <Calendar
-                            className={`${styles.button}`}
-                            calendarType="US"
-                            minDate={currentDate}
-                            defaultActiveStartDate={currentDate}
-                            maxDate={datemax}
-                            next2Label={null}
-                            prev2Label={null}
-                            // onChange={onChangeCalendar}
-                            value={selectedDate}
-                            onClickDay={handleClickDay}
-                            data-bs-toggle={"collapse"}
-                            data-bs-target="#collapseExample"
-                            aria-controls="collapseExample"
-                          />
-                        </div>
-
-                        <div
-                          className={`${
-                            isCollapsed ? "col-12 col-md-5" : "col-0"
-                          } `}
-                        >
-                          <div className={`collapse`} id="collapseExample">
-                            <div className="card card-body ">
-                              <p>
-                                {selectedDate.toLocaleDateString("en-US", {
-                                  weekday: "long",
-                                  month: "long",
-                                  day: "numeric",
-                                })}
-                              </p>
-
-                              {availableTimes && (
-                                <>
-                                  {availableTimes.map((time, index) => {
-                                    return (
-                                      <button
-                                        key={index}
-                                        style={{ borderRadius: "23px" }}
-                                        onClick={(e) => handlePickedTime(e)}
-                                        className="btn btn-outline-success my-1"
-                                      >
-                                        {time}
-                                      </button>
-                                    );
-                                  })}
-                                </>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    {/* END OF FIRST SELECTION */}
-                  </>
-                ) : (
-                  <>
-                    {/* SECOND SELECTION */}
-                    <AppointmentUserDetails
-                      selectedDateString={selectedDateString}
-                      selectedDate={selectedDate}
-                      setCollapse={setCollapse}
-                      setPickedTime={setPickedTime}
-                      pickedTime={pickedTime}
-                      userInput={userInput}
-                      handleUserInput={handleUserInput}
-                      setIsPaying={setIsPaying}
-                      setClientSecret={setClientSecret}
-                      setStripePaymentIntentId={setStripePaymentIntentId}
-                      setPrice={setPrice}
-                    ></AppointmentUserDetails>
-                    {/* END OF SECOND SELECTION */}
-                  </>
-                )}
-              </div>
-              <div className="card-footer bg-transparent border-muted">
-                Time:{" "}
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+          <div className="card-footer bg-transparent border-muted">Time: </div>
+        </div>
+      </div>
 
       <button
         hidden

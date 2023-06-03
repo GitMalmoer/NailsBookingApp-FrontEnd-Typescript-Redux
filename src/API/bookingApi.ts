@@ -24,8 +24,17 @@ const bookingApi = createApi({
       }),
       invalidatesTags:["times"],
     }),
+    initiatePayment: builder.mutation({
+      query: (data) => ({
+        url: "InitiatePayment",
+        method: "POST",
+        headers: {"content-type":"application/json"},
+        body: data,
+      }),
+      invalidatesTags:["times"],
+    }),
   }),
 });
 
 export default bookingApi;
-export const { useGetAvailableTimesQuery, useCreateAppointmentMutation } = bookingApi;
+export const { useGetAvailableTimesQuery, useCreateAppointmentMutation, useInitiatePaymentMutation } = bookingApi;

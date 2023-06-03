@@ -5,6 +5,7 @@ import styles from "./BookingCalendar.module.css";
 import { useCreateAppointmentMutation, useGetAvailableTimesQuery, useInitiatePaymentMutation } from "../../../API/bookingApi";
 import { inputHelper } from "../../../Helper";
 import apiResponse from "../../../Interfaces/apiResponse";
+import AppointmentUserDetails from "./AppointmentUserDetails";
 
 function BookingCalendar() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -23,7 +24,7 @@ function BookingCalendar() {
   });
   //another way with param name: {stringDate:selectedDateString}
   const getAvailableTimesQuery = useGetAvailableTimesQuery(selectedDateString);
-  const [initiatePayment] = useInitiatePaymentMutation();
+
 
   const handleUserInput = (e:React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const tempData = inputHelper(e,userInput);
@@ -88,27 +89,7 @@ function BookingCalendar() {
     console.log(buttonContent);
   };
 
-  const handleConfirmAppointment = async (e : any) => {
-    e.preventDefault();
-
-    const formBody = {
-      Name:userInput.Name,
-      LastName:userInput.LastName,
-      Email:userInput.Email,
-      Phone:userInput.Phone,
-      Date:selectedDateString,
-      Time:pickedTime,
-      ServiceValue:userInput.Service,
-    }
-
-    const response: apiResponse = await initiatePayment(formBody);
-
-    if (response.data?.isSuccess) {
-      console.log(response);
-    } else {
-      console.log(response);
-    }
-  }
+ 
 
   return (
     <div className="row">
@@ -151,7 +132,6 @@ function BookingCalendar() {
                         data-bs-toggle={"collapse"}
                         data-bs-target="#collapseExample"
                         aria-controls="collapseExample"
-                        
                       />
                     </div>
 
@@ -172,7 +152,7 @@ function BookingCalendar() {
 
                           {availableTimes && (
                             <>
-                              {availableTimes.map((time,index) => {
+                              {availableTimes.map((time, index) => {
                                 return (
                                   <button
                                     key={index}
@@ -195,7 +175,15 @@ function BookingCalendar() {
               </>
             ) : (
               <>
-              
+                <AppointmentUserDetails
+                  selectedDateString={selectedDateString}
+                  selectedDate={selectedDate}
+                  setCollapse={setCollapse}
+                  setPickedTime={setPickedTime}
+                  pickedTime={pickedTime}
+                  userInput={userInput}
+                  handleUserInput={handleUserInput}
+                ></AppointmentUserDetails>
               </>
             )}
           </div>

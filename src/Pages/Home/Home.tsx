@@ -100,7 +100,7 @@ function Home() {
         {/* qualifications image */}
         <div
           data-aos="fade-left"
-          className="col-md-8 offset-md-4 col-lg-5 offset-lg-1 p-5 order-md-2"
+          className="col-12 col-md-8 offset-md-4 col-lg-5 offset-lg-1 p-5 order-md-2"
         >
           <figure className="image is-square">
             <img src={certification} alt="qualificationsImage" />
@@ -110,7 +110,7 @@ function Home() {
         {/* qualifications text */}
         <div
           data-aos="fade-down"
-          className="col-md-8 offset-md-4 col-lg-5 offset-lg-1 mt-5 pt-5 order-md-1"
+          className="col-12 col-md-8 offset-md-4 col-lg-5 offset-lg-1 mt-5 pt-5 order-md-1"
         >
           <h1 className="titled mb-6">Qualifications</h1>
           <h2 className="subtitled subtitle">
@@ -126,7 +126,7 @@ function Home() {
       <div className="row container p-5 mt-lg-5">
         <div
           data-aos="fade-right"
-          className="col-md-8 offset-md-4 col-lg-5 offset-lg-1 pt-5"
+          className="col-12 col-md-8 offset-md-4 col-lg-5 offset-lg-1 pt-5"
         >
           <h1 className="title titled is-1 ">Find us in Karlskoga!</h1>
           <h4 className="" style={{color:"#4a4a4a"}}>

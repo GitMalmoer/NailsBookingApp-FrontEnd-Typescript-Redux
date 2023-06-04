@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import "aos/dist/aos.css";
 import Aos from "aos";
 import Typewriter from "typewriter-effect";
-import "./Home.css"
+import "./Home.css";
 
 import image from "../../Images/undraw_Camera_re_cnp4.svg";
 import manicoure from "../../Assets/Manicoure/mani4.svg";
 import map from "../../Assets/undraw_map_dark_re_36sy.svg";
-import certification from "../../Assets/certification.svg"
+import certification from "../../Assets/certification.svg";
 import MainSection from "../../Components/Home/MainSection";
 import OurServices from "../../Components/Home/OurServices";
 import MapToNails from "../../Components/Map/MapToNails";
@@ -123,13 +123,18 @@ function Home() {
 
       <OurServices />
 
-      <div className="row container p-5 mt-lg-5">
+      <div className="row container p-3 p-lg-0 mt-0 mt-lg-5">
         <div
           data-aos="fade-right"
           className="col-12 col-md-8 offset-md-4 col-lg-5 offset-lg-1 pt-5"
         >
-          <h1 className="title titled is-1 ">Find us in Karlskoga!</h1>
-          <h4 className="" style={{color:"#4a4a4a"}}>
+          <h1
+            style={{ fontFamily: "Merriweather, serif" }}
+            className="display-3"
+          >
+            Find us in Karlskoga!
+          </h1>
+          <h4 className="" style={{ color: "#4a4a4a" }}>
             We are located at Sandtorpsvägen 3A
           </h4>
 
@@ -147,7 +152,7 @@ function Home() {
           data-aos="fade-down"
           className="col-md-8 offset-md-4 col-lg-5 offset-lg-1 p-3 mt-3"
         >
-          <figure >
+          <figure>
             <img src={map} alt="" />
           </figure>
         </div>
@@ -158,8 +163,9 @@ function Home() {
       </div> */}
 
       {/* <!-- Modal --> */}
+      <div className="row">
       <div
-        className="modal fade"
+        className="modal fade col-12"
         id="exampleModal"
         tabIndex={-1}
         aria-labelledby="exampleModalLabel"
@@ -178,7 +184,9 @@ function Home() {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body"><MapToNails/></div>
+            <div className="modal-body">
+              <MapToNails />
+            </div>
             <div className="modal-footer">
               <button
                 type="button"
@@ -190,6 +198,7 @@ function Home() {
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       <section className="hero is-medium has-text-centered">

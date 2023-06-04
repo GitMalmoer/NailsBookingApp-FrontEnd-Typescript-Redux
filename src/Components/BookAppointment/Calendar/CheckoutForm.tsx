@@ -13,7 +13,7 @@ import { MiniLoader } from "../../Common";
 
 interface props {
   clientSecret: string;
-  createAppointmentData : createAppointment,
+  createAppointmentData: createAppointment;
 }
 
 export default function CheckoutForm(props: props) {
@@ -34,7 +34,6 @@ export default function CheckoutForm(props: props) {
     if (!clientSecret) {
       return;
     }
-
   }, []);
 
   const handleSubmit = async (e: any) => {
@@ -48,7 +47,7 @@ export default function CheckoutForm(props: props) {
 
     setIsLoading(true);
 
-    const { error,paymentIntent } = await stripe.confirmPayment({
+    const { error, paymentIntent } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: "https://nailsbookingapp.netlify.app/",
@@ -63,17 +62,17 @@ export default function CheckoutForm(props: props) {
     // redirected to the `return_url`.
     if (error?.type === "card_error" || error?.type === "validation_error") {
       setMessage(error.message);
-    } else if(error) {
+    } else if (error) {
       setMessage("An unexpected error occurred.");
     }
-    if(paymentIntent?.status === "succeeded")
-    {
-        const createResponse : apiResponse = await createAppointment(createAppointmentData);
-        if(createResponse.error)
-        {
-            console.log(createResponse);
-        }
-        navigate("/success/You payment has been successfull!")
+    if (paymentIntent?.status === "succeeded") {
+      const createResponse: apiResponse = await createAppointment(
+        createAppointmentData
+      );
+      if (createResponse.error) {
+        console.log(createResponse);
+      }
+      navigate("/success/You payment has been successfull!");
     }
     setIsLoading(false);
   };
@@ -81,7 +80,7 @@ export default function CheckoutForm(props: props) {
   return (
     <div className="shadow card border-muted mb-3">
       <div className="card-body ">
-      <h5 className="card-title">Payment</h5>
+        <h5 className="card-title">Payment</h5>
         <form id="payment-form" onSubmit={handleSubmit}>
           <PaymentElement id="payment-element" />
           <button
@@ -89,11 +88,18 @@ export default function CheckoutForm(props: props) {
             disabled={isLoading || !stripe || !elements}
             id="submit"
           >
-              {isLoading ? (
-                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-              ) : (
-                "Pay now"
-              )}
+            {isLoading ? (
+              <>
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+                &nbsp;Loading...
+              </>
+            ) : (
+              "Pay now"
+            )}
           </button>
           {/* Show any error or success messages */}
           {message && <div id="payment-message">{message}</div>}

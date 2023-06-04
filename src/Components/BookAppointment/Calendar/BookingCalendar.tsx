@@ -39,7 +39,6 @@ function BookingCalendar() {
     setUserInput(tempData);
   };
 
-
   const currentDate: Date = new Date();
   const datemax: Date = new Date(currentDate);
   datemax.setDate(currentDate.getDate() + 7);
@@ -56,13 +55,17 @@ function BookingCalendar() {
   }, [getAvailableTimesQuery.data]);
 
   useEffect(() => {
+    setLoadingTimes(true);
     // refetching data when selection is changed
     const fetchData = async () => {
       await getAvailableTimesQuery.refetch();
+      setLoadingTimes(false);
     };
 
     fetchData();
   }, [selectedDateString]);
+
+
 
   const handleClickDay = async (date: any) => {
     const selection: Date = date;
@@ -70,7 +73,6 @@ function BookingCalendar() {
     setSelectedDate(date);
     // useeffect is on selectedDataString when this changes we make a call to api
     setSelectedDateString(selectionString);
-    console.log("CLICK DAY" + selectedDateString);
     if (!isCollapsed) {
       setCollapse(true);
       if (buttonRef.current !== null) {
@@ -85,8 +87,6 @@ function BookingCalendar() {
     if (buttonContent != null && buttonContent.length !== 0) {
       setPickedTime(buttonContent);
     }
-
-    console.log(buttonContent);
   };
 
   return (
@@ -117,14 +117,13 @@ function BookingCalendar() {
                       }`}
                     >
                       <Calendar
-                        className={`${styles.button}`}
+                        className={`${styles.calendar}`}
                         calendarType="US"
                         minDate={currentDate}
                         defaultActiveStartDate={currentDate}
                         maxDate={datemax}
                         next2Label={null}
                         prev2Label={null}
-                        // onChange={onChangeCalendar}
                         value={selectedDate}
                         onClickDay={handleClickDay}
                         data-bs-toggle={"collapse"}
@@ -147,21 +146,41 @@ function BookingCalendar() {
                               day: "numeric",
                             })}
                           </p>
-
-                          {availableTimes && (
+                          {/* IF IS FETCHING DATA THEN SHOW SPINNER IF NOT THEN LOAD BUTTON TIMES */}
+                          {loadingTimes ? (
                             <>
-                              {availableTimes.map((time, index) => {
-                                return (
-                                  <button
-                                    key={index}
-                                    style={{ borderRadius: "23px" }}
-                                    onClick={(e) => handlePickedTime(e)}
-                                    className="btn btn-outline-success my-1"
-                                  >
-                                    {time}
-                                  </button>
-                                );
-                              })}
+                              <div style={{ height: "200px" }}>
+                                <div
+                                  className="d-flex justify-content-center align-content-center"
+                                  style={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                  }}
+                                >
+                                  <div className="spinner-border text-warning"></div>
+                                </div>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              {availableTimes && (
+                                <>
+                                  {availableTimes.map((time, index) => {
+                                    return (
+                                      <button
+                                        key={index}
+                                        style={{ borderRadius: "23px" }}
+                                        onClick={(e) => handlePickedTime(e)}
+                                        className="btn btn-outline-success my-1"
+                                      >
+                                        {time}
+                                      </button>
+                                    );
+                                  })}
+                                </>
+                              )}
                             </>
                           )}
                         </div>
@@ -187,7 +206,11 @@ function BookingCalendar() {
               </>
             )}
           </div>
-          <div className="card-footer bg-transparent border-muted">{pickedTime ? ("Pick a service and write contact information.") : "Select a date and time to book."} </div>
+          <div className="card-footer bg-transparent border-muted">
+            {pickedTime
+              ? "Pick a service and write contact information."
+              : "Select a date and time to book."}{" "}
+          </div>
         </div>
       </div>
 

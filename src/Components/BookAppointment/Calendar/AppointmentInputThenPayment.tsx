@@ -30,6 +30,7 @@ function AppointmentInputThenPayment(props: props) {
   const [isPaying, setIsPaying] = useState(false);
   const [initiatePayment] = useInitiatePaymentMutation();
   const [price, setPrice] = useState("");
+  const [proceedPaymentLoading, setProceedPaymentLoading] = useState(false);
   const [createAppointmentData, setCreateAppointmentData] = useState({
     Name: "",
     LastName: "",
@@ -38,7 +39,7 @@ function AppointmentInputThenPayment(props: props) {
     Date: "",
     Time: "",
     ServiceValue: "",
-    Price:"",
+    Price: "",
   });
   const selectRef = useRef<HTMLSelectElement>(null);
 
@@ -50,9 +51,9 @@ function AppointmentInputThenPayment(props: props) {
     }
   }, [isPaying]);
 
-
   const handleConfirmAppointment = async (e: any) => {
     e.preventDefault();
+    setProceedPaymentLoading(true);
 
     const formBody = {
       Name: userInput.Name,
@@ -73,29 +74,33 @@ function AppointmentInputThenPayment(props: props) {
       );
       setPrice(response.data?.result?.price ?? "");
       // SETTING UP FORM TO PASS TO PAYMENT
-      setCreateAppointmentData({...formBody,Price : response.data?.result?.price ?? ""});
+      setCreateAppointmentData({
+        ...formBody,
+        Price: response.data?.result?.price ?? "",
+      });
       setIsPaying(true);
 
-      console.log(response);
     } else {
       setIsPaying(false);
       console.log(response);
     }
+    setProceedPaymentLoading(false);
   };
-
 
   const getSelectedOption = () => {
     if (selectRef.current) {
-      const selectedOption = selectRef.current.options[selectRef.current.selectedIndex];
+      const selectedOption =
+        selectRef.current.options[selectRef.current.selectedIndex];
       const selectedText = selectedOption.textContent;
       return selectedText;
     }
-  }
+  };
 
   return (
     <>
       {isPaying ? (
         <>
+          {/* CHECKOUT FORM AND DETAILS */}
           <div className="row ">
             <div className="col-12 col-md-6">
               <div className="card">
@@ -129,6 +134,7 @@ function AppointmentInputThenPayment(props: props) {
               ></Payment>
             </div>
           </div>
+          {/* END CHECKOUT FORM AND DETAILS */}
         </>
       ) : (
         <>
@@ -229,8 +235,21 @@ function AppointmentInputThenPayment(props: props) {
                 style={{ borderRadius: "23px" }}
                 type="submit"
                 className="btn btn-success w-50 ms-2"
+                disabled = {proceedPaymentLoading}
               >
-                Proceed to payment
+                {proceedPaymentLoading ? (
+                  <>
+                    {" "}
+                    <span
+                      className="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                     &nbsp; Loading...
+                  </>
+                ) : (
+                  <>Proceed to payment</>
+                )}
               </button>
             </div>
           </form>

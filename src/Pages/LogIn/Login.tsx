@@ -13,7 +13,7 @@ import { RootState } from "../../Storage/Redux/store";
 import { NavLink } from "react-router-dom";
 import MainLoader from "../../Components/Common/MainLoader";
 import { MiniLoader } from "../../Components/Common";
-let logo = require("../../Assets/logotransp.png");
+let logo = require("../../Assets/logocompress.png");
 
 function Login() {
     let navigate = useNavigate();

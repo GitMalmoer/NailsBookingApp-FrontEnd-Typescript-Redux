@@ -3,11 +3,9 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import "./OurServices.css";
 import { NavLink } from "react-router-dom";
-let pazy2 = require("../../Assets/pazy2.jpg");
-let pazy3 = require("../../Assets/pazy3.jpg");
-let pazy4 = require("../../Assets/pazy4.jpg");
-let pazy5 = require("../../Assets/pazy5.jpg");
-let pedicure = require("../../Assets/pedicure1.jpg");
+let pazy2 = require("../../Assets/pazy2compress.png");
+let pazy3 = require("../../Assets/pazy3compress.png");
+let pedicure = require("../../Assets/pedicurecompress.png");
 
 function OurServices() {
   useEffect(() => {
@@ -23,7 +21,7 @@ function OurServices() {
         <div className="card h-100">
           <img
             className="card-img-top"
-            style={{ height:"55%", objectFit:"cover" }}
+            style={{ height:"60%", objectFit:"cover" }}
             src={pazy2}
             alt="Card image cap"
           />
@@ -46,7 +44,7 @@ function OurServices() {
         <div className="card h-100">
           <img
             className="card-img-top"
-            style={{ height:"55%", objectFit:"cover" }}
+            style={{ height:"60%", objectFit:"cover" }}
             src={pazy3}
             alt="Card image cap"
           />
@@ -69,7 +67,7 @@ function OurServices() {
         <div className="card h-100">
           <img
             className="card-img-top"
-            style={{ height:"55%", objectFit:"cover"}}
+            style={{ height:"60%", objectFit:"cover"}}
             src={pedicure}
             alt="Card image cap"
           />

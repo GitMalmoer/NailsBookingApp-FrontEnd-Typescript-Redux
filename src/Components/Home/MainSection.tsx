@@ -4,11 +4,8 @@ import Typewriter from "typewriter-effect";
 import { NavLink } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 
-let pazy1 = require("../../Assets/pazywhite1.jpg");
-let manicure1 = require("../../Assets/manicure1.jpg");
+let pazy1 = require("../../Assets/pazywhitecompress.png");
 let leaf1 = require("../../Assets/Leaf-1.png");
-let leaf2 = require("../../Assets/leaf-2.png");
-let leaf3 = require("../../Assets/leaf-3.png");
 
 function MainSection() {
   return (

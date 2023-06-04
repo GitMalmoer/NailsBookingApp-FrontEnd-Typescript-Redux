@@ -8,7 +8,7 @@ import {
   emptyUserState,
   setLoggedInUser,
 } from "../../Storage/Redux/userAuthSlice";
-let logo = require("../../Assets/logotransp.png");
+let logo = require("../../Assets/logocompress.png");
 
 function Header() {
   let navigate = useNavigate();

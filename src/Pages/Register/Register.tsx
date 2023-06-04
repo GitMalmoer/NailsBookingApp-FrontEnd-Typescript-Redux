@@ -97,9 +97,9 @@ function Register() {
   }, [errorMessage]);
 
   return (
-    <div className="register-comp p-5">
-      <section className="container ">
-        <div className="col-md-8 offset-md-2 col-12 register">
+    <div className="register-comp ">
+      <section className="container py-5">
+        <div className="col-lg-8 offset-lg-2 col-12 register">
           <div className="columns">
             <div className="column left">
               <h1 className="title is-1">Did you know?</h1>

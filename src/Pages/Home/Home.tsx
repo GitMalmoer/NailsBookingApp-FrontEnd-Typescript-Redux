@@ -23,25 +23,25 @@ function Home() {
         <MainSection />
       </div>
 
-      <div className="container row pt-5">
-        <div className="col-md-8 offset-md-4 col-lg-5 offset-lg-1 ">
+      <div className="container-md row pt-5">
+        <div className="col-12 col-md-8 offset-md-4 col-lg-5 offset-lg-1 ">
           <div data-aos="fade-left" className="col-12">
             <figure className="image is-square">
               <img src={manicoure} alt="" />
             </figure>
           </div>
         </div>
-        <div className="col-md-8 offset-md-4 col-lg-5 offset-lg-1 pt-5">
+        <div className="col-12 col-md-8 offset-md-4 col-lg-5 offset-lg-1 pt-5">
           <div data-aos="fade-down" className="col-12">
-            <h1 className="titled mb-md-4">About Me</h1>
-            <div className="mb-4">
+            <h1 className="titled mb-md-4 text-center text-lg-start">About Me</h1>
+            <div className="mb-4 text-center text-lg-start">
               <img
                 src={KasiaPic}
                 style={{ borderRadius: "100%", maxWidth: "150px" }}
                 alt=""
               />
             </div>
-            <h2 className="subtitled subtitle">
+            <h2 className="subtitled subtitle ">
               Welcome to my world of nail care and beauty! I am Kate, a
               dedicated professional with an unyielding passion for manicures
               and pedicures. For the past five years, I have poured my heart and
@@ -96,7 +96,7 @@ function Home() {
 
       {/* qualificatons section */}
 
-      <div className="container row pt-5">
+      <div className="container-md row pt-5">
         {/* qualifications image */}
         <div
           data-aos="fade-left"
@@ -112,7 +112,7 @@ function Home() {
           data-aos="fade-down"
           className="col-12 col-md-8 offset-md-4 col-lg-5 offset-lg-1 mt-5 pt-5 order-md-1"
         >
-          <h1 className="titled mb-6">Qualifications</h1>
+          <h1 className="titled mb-6 text-center">Qualifications</h1>
           <h2 className="subtitled subtitle">
             I attend regullary to nail making courses to keep my knowledge up to
             date with latest trends and techniques. With this knowledge you have
@@ -123,10 +123,11 @@ function Home() {
 
       <OurServices />
 
-      <div className="row container p-3 p-lg-0 mt-0 mt-lg-5">
+      <div className="row p-3 p-lg-0 mt-0 mt-lg-5">
+        {/* FIND US IN KARLSKOGA START */}
         <div
           data-aos="fade-right"
-          className="col-12 col-md-8 offset-md-4 col-lg-5 offset-lg-1 pt-5"
+          className="col-12 col-md-8 offset-md-2 col-lg-4 offset-lg-1 pt-5 text-center text-md-start"
         >
           <h1
             style={{ fontFamily: "Merriweather, serif" }}
@@ -147,31 +148,30 @@ function Home() {
             Show Map
           </button>
         </div>
-
+        {/* map svg */}
         <div
           data-aos="fade-down"
-          className="col-md-8 offset-md-4 col-lg-5 offset-lg-1 p-3 mt-3"
+          className="col-8 offset-2 col-md-8 offset-md-2 col-lg-4 offset-lg-1 p-3 mt-3"
         >
           <figure>
             <img src={map} alt="" />
           </figure>
         </div>
+        {/* map svg */}
+        {/* FIND US IN KARLSKOGA END */}
       </div>
 
-      {/* <div className="mapToNails" style={{height:"500px", width:"500px"}}>
-      <MapToNails/>
-      </div> */}
 
       {/* <!-- Modal --> */}
       <div className="row">
       <div
-        className="modal fade col-12"
+        className="modal fade"
         id="exampleModal"
         tabIndex={-1}
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog">
+        <div className="modal-dialog modal-dialog-centered modal-xl w-100 ">
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">

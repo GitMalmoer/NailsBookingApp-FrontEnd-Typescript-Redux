@@ -63,7 +63,7 @@ function OurServices() {
         </div>
       </div>
 
-      <div className="col-12 col-lg-4 mt-2" data-aos="fade-right">
+      <div className="col-12 col-lg-4 my-2" data-aos="fade-right">
         <div className="card h-100">
           <img
             className="card-img-top"

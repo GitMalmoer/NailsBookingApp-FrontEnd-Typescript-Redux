@@ -16,6 +16,7 @@ Backend: https://nailsbookingapi.azurewebsites.net/index.html
 - All hosted and deployed on azure and netlify
 ## Screenshots
 **Home**
+![main (2)](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/239da2a2-752c-43e1-b1db-b7e3e3b4170b)
 ![Nails_-_Google_Chrome_2023-06-07_14-09-59_AdobeExpress](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/b72dd1ad-78be-48a8-bca4-c71b60ffd9e6)
 ![booking](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/07d77ab6-e06d-4d18-9d8e-3c14e8b706d9)
 **Stripe booking confirmation**

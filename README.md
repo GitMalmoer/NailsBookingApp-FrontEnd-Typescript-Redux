@@ -35,7 +35,7 @@ Backend: https://nailsbookingapi.azurewebsites.net/index.html
 
 2. Change the working directory
 
-`cd github-profile-readme-generator`
+`cd nagelstore`
 
 3. Install dependencies
 

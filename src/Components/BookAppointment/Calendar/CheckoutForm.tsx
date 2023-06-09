@@ -101,6 +101,7 @@ export default function CheckoutForm(props: props) {
               "Pay now"
             )}
           </button>
+          <p className="text-danger">Stripe is in test mode! Use Test card (4242 4242 4242 4242)</p>
           {/* Show any error or success messages */}
           {message && <div id="payment-message">{message}</div>}
         </form>

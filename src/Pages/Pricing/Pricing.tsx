@@ -8,7 +8,7 @@ function Pricing() {
       <div className="col-12 col-md-5 offset-md-1">
           <img src={payment}/>
         </div>
-        <div className="col-12 col-md-5 offset-md-1 p-3 m-3">
+        <div className="col-12 col-md-5 offset-md-1 p-3 m-0 m-md-3">
           {/* card start */}
           <table className="table table-bordered table-hover border">
             <thead>

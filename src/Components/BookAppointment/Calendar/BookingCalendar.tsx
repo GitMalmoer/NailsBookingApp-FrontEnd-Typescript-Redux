@@ -94,8 +94,8 @@ function BookingCalendar() {
       <div
         className={`${
           !isCollapsed
-            ? "col-12 col-md-4 offset-md-4"
-            : "col-12 col-md-6 offset-md-3"
+            ? "col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4"
+            : "col-12 col-md-10 offset-md-1 col-lg-8 offset-lg-2"
         }`}
       >
         <div className="shadow card border-muted mb-3">
@@ -112,8 +112,8 @@ function BookingCalendar() {
                     <div
                       className={`${
                         !isCollapsed
-                          ? "col-12 col-md-10 offset-md-1"
-                          : "col-12 col-md-5 offset-md-1"
+                          ? "col-12 col-md-10 offset-md-1 d-flex justify-content-center align-items-center"
+                          : "col-12 col-md-5 offset-md-1 "
                       }`}
                     >
                       <Calendar
@@ -126,9 +126,6 @@ function BookingCalendar() {
                         prev2Label={null}
                         value={selectedDate}
                         onClickDay={handleClickDay}
-                        data-bs-toggle={"collapse"}
-                        data-bs-target="#collapseExample"
-                        aria-controls="collapseExample"
                       />
                     </div>
 

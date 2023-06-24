@@ -67,9 +67,9 @@ function Home() {
         {/* qualifications text */}
         <div
           data-aos="fade-down"
-          className="col-12 col-md-8 offset-md-4 col-lg-5 offset-lg-1 mt-5 pt-5 order-md-1"
+          className="col-12 col-md-8 offset-md-4 col-lg-5 offset-lg-1 mt-0 mt-md-5 pt-5 order-md-1"
         >
-          <h1 className="titled mb-6 text-center">Qualifications</h1>
+          <h1 className="titled-small mb-4 text-center">Qualifications</h1>
           <h2 className="subtitled subtitle">
             I attend regullary to nail making courses to keep my knowledge up to
             date with latest trends and techniques. With this knowledge you have

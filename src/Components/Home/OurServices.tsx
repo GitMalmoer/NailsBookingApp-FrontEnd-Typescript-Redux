@@ -13,10 +13,8 @@ function OurServices() {
   }, []);
 
   return (
-    <div className="row px-5" id="ourServices">
-
+    <div className="row px-5 mt-3 " id="ourServices">
       <h1 className="our-services-heading text-center">Our Services</h1>
-
       <div className="col-12 col-lg-4 my-2 " data-aos="fade-left">
         <div className="card h-100">
           <img

@@ -2,7 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const authApi = createApi({
   reducerPath: "authApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://nailsbookingapi.azurewebsites.net/api/auth/",
+  // baseQuery: fetchBaseQuery({ baseUrl: "https://nailsbookingapi.azurewebsites.net/api/auth/",
+  baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:7268/api/auth/",
   prepareHeaders:(headers:Headers,api) => {
     const token = localStorage.getItem("token");
     token && headers.append("Authorization","Bearer " + token);
@@ -22,6 +23,14 @@ const authApi = createApi({
         url: "login",
         method: "POST",
         headers: { "content-type": "application/json" },
+        body: userData,
+      }),
+    }),
+    loginUserWithGoogle: builder.mutation({
+      query: (userData) => ({
+        url: "loginWithGoogle",
+        method:"POST",
+        headers: {"content-type" : "application/json"},
         body: userData,
       }),
     }),
@@ -90,6 +99,7 @@ const authApi = createApi({
 
 export const {
   useLoginUserMutation,
+  useLoginUserWithGoogleMutation,
   useRegisterUserMutation,
   useGetUsersQuery,
   useForgotUserPasswordMutation,
@@ -101,6 +111,5 @@ export const {
   useGetAllAvatarsQuery,
 } = authApi;
 
-// export const authApiReducer = authApi.reducer; // TEST
 
 export default authApi;

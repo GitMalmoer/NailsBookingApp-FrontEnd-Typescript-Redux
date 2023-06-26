@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
-import { HashLink } from 'react-router-hash-link'
+import { HashLink } from "react-router-hash-link";
 import { inputHelper } from "../../Helper";
 import { useLoginUserMutation } from "../../API/authApi";
 import apiResponse from "../../Interfaces/apiResponse";
@@ -13,62 +13,67 @@ import { RootState } from "../../Storage/Redux/store";
 import { NavLink } from "react-router-dom";
 import MainLoader from "../../Components/Common/MainLoader";
 import { MiniLoader } from "../../Components/Common";
+import GoogleLoginBtn from "../../Components/LogIn/GoogleLoginBtn";
 let logo = require("../../Assets/logocompress.png");
 
 function Login() {
-    let navigate = useNavigate();
-    const [loading,setLoading] = useState(false);
-    const [loginUser] = useLoginUserMutation();
-    const [isTyping,setIsTyping] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-    const dispatch = useDispatch();
-    const [userInput, setUserInput] = useState({
-      email:"",
-      password:""
+  let navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [loginUser] = useLoginUserMutation();
+  const [isTyping, setIsTyping] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
+  const [userInput, setUserInput] = useState({
+    email: "",
+    password: "",
+  });
+
+  useEffect(() => {
+    // whenever user is typing clear error messages
+    setErrorMessage("");
+  }, [isTyping == true]);
+
+  const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const tempData = inputHelper(e, userInput);
+    setUserInput(tempData);
+    setIsTyping(true);
+  };
+
+  const handleLogin = async (e: any) => {
+    setLoading(true);
+    e.preventDefault();
+    setIsTyping(false);
+    const response: apiResponse = await loginUser({
+      username: userInput.email,
+      password: userInput.password,
     });
 
-
-    useEffect(()=>{
-      // whenever user is typing clear error messages
-      setErrorMessage("");
-    },[isTyping == true])
-
-    const handleUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const tempData = inputHelper(e, userInput)
-      setUserInput(tempData);
-      setIsTyping(true);
+    if (response.data) {
+      const { token } = response.data.result;
+      if (token) {
+        localStorage.setItem("token", token);
+        const { Id, Name, ConfirmedEmail, Email, LastName, role }: userModel =
+          jwtDecode(token);
+        dispatch(
+          setLoggedInUser({
+            Id,
+            Name,
+            ConfirmedEmail,
+            Email,
+            LastName,
+            role,
+          })
+        );
+        navigate("/#mainsection");
+      }
     }
 
-    const handleLogin = async (e:any) =>{
-      setLoading(true);
-      e.preventDefault();
-      setIsTyping(false);
-      const response : apiResponse = await loginUser({
-        username:userInput.email,
-        password:userInput.password
-      });
-
-      if(response.data)
-      {
-        const {token} = response.data.result;
-        if(token)
-        {
-          localStorage.setItem("token",token);
-          const {Id,Name,ConfirmedEmail,Email,LastName,role} :userModel = jwtDecode(token);
-          dispatch(setLoggedInUser({
-            Id,Name,ConfirmedEmail,Email,LastName,role
-          }));
-          navigate("/#mainsection");
-        }
-      }
-
-      if(response.error)
-      {
-        let errorMessage = response.error.data.errorMessages[0];
-        setErrorMessage(errorMessage);
-      }
-      setLoading(false);
+    if (response.error) {
+      let errorMessage = response.error.data.errorMessages[0];
+      setErrorMessage(errorMessage);
     }
+    setLoading(false);
+  };
 
   return (
     <div className="login">
@@ -82,6 +87,10 @@ function Login() {
                   <img src={logo} style={{ width: "150px", height: "150px" }} />
                 </figure>
                 
+                <div className=" w-100">
+                  <GoogleLoginBtn></GoogleLoginBtn>
+                  </div>
+
                 <form onSubmit={(e) => handleLogin(e)}>
                   <div className="field">
                     <div className="control">
@@ -106,14 +115,25 @@ function Login() {
                       />
                     </div>
                     <div>
-                    <small className="text-danger">{errorMessage && errorMessage }</small>
-                  </div>
+                      <small className="text-danger">
+                        {errorMessage && errorMessage}
+                      </small>
+                    </div>
                   </div>
                   <button
                     type="submit"
-                    className="button is-block is-info is-large is-fullwidth"
+                    className="button is-block is-info is-large is-fullwidth shadow-sm"
                   >
-                    {loading ? <><MiniLoader/></> : <>Login<i className="fa fa-sign-in" aria-hidden="true"></i></>} 
+                    {loading ? (
+                      <>
+                        <MiniLoader />
+                      </>
+                    ) : (
+                      <>
+                        Login
+                        <i className="fa fa-sign-in" aria-hidden="true"></i>
+                      </>
+                    )}
                   </button>
                   {/* hashlink is a solution to React Router's issue of not scrolling to #hash-fragments */}
                   <HashLink
@@ -126,7 +146,8 @@ function Login() {
               </div>
               <p className="has-text-grey">
                 <NavLink to="/register">Sign Up</NavLink> &nbsp;·&nbsp;
-                <NavLink to="/forgotpassword">Forgot Password</NavLink> &nbsp;·&nbsp;
+                <NavLink to="/forgotpassword">Forgot Password</NavLink>{" "}
+                &nbsp;·&nbsp;
               </p>
             </div>
           </div>

@@ -72,7 +72,7 @@ export default function CheckoutForm(props: props) {
       if (createResponse.error) {
         console.log(createResponse);
       }
-      navigate("/success/You payment has been successfull!");
+      navigate("/success/Your payment has been successfull!");
     }
     setIsLoading(false);
   };

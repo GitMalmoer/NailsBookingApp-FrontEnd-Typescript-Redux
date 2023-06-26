@@ -82,7 +82,6 @@ function AppointmentInputThenPayment(props: props) {
 
     } else {
       setIsPaying(false);
-      console.log(response);
     }
     setProceedPaymentLoading(false);
   };

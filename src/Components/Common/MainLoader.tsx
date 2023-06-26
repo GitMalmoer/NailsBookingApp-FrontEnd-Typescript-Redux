@@ -9,6 +9,7 @@ function MainLoader() {
         width:"100vw",
         height:"100vh",
         display:"flex",
+        zIndex: 999,
         alignItems:"center",
         justifyContent:"center",
         }}>

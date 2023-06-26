@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const authApi = createApi({
   reducerPath: "authApi",
-  // baseQuery: fetchBaseQuery({ baseUrl: "https://nailsbookingapi.azurewebsites.net/api/auth/",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:7268/api/auth/",
+  baseQuery: fetchBaseQuery({ baseUrl: "https://nailsbookingapi.azurewebsites.net/api/auth/",
+  // baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:7268/api/auth/",
   prepareHeaders:(headers:Headers,api) => {
     const token = localStorage.getItem("token");
     token && headers.append("Authorization","Bearer " + token);

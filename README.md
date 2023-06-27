@@ -14,6 +14,7 @@ Backend: https://nailsbookingapi.azurewebsites.net/index.html
 - Sign up, login, forget password, reset password and email authentication(token send to users email with SMTP), 
 - Profile editing, Avatar change
 - All hosted and deployed on azure and netlify
+- Google Authentication
 ## Screenshots
 **Home**
 

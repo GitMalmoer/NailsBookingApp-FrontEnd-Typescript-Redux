@@ -1,8 +1,12 @@
 
 # NailsBooking App Frontend
-Frontend: https://nailsbookingapp.netlify.app/
+Frontend Live: https://nailsbookingapp.netlify.app/
 
-Backend: https://nailsbookingapi.azurewebsites.net/index.html
+Backend Live: https://nailsbookingapi.azurewebsites.net/index.html
+
+Backend Repository: https://github.com/GitMalmoer/NailsBookingApp-API
+.Net Api with CQRS + MediatR Architecture
+
 
 ## Features
 - Home page with animations AOS

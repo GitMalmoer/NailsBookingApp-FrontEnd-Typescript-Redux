@@ -1,6 +1,5 @@
-
 # NailsBooking App Frontend
-Frontend Live: https://nailsbookingapp.netlify.app/
+### **Frontend Live**: https://nailsbookingapp.netlify.app/
 
 Backend Live: https://nailsbookingapi.azurewebsites.net/index.html
 

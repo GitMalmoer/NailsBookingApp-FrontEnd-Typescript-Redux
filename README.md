@@ -21,7 +21,7 @@ Backend Repository: https://github.com/GitMalmoer/NailsBookingApp-API
 ## Screenshots
 **Home**
 
-![main (2)](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/239da2a2-752c-43e1-b1db-b7e3e3b4170b)
+![image](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/7dfa8e69-1ff6-44f6-a8f6-0b46718b0ece)
 **Booking** 
 
 ![booking](https://github.com/GitMalmoer/NailsBookingApp-FrontEnd-Typescript-Redux/assets/113827015/07d77ab6-e06d-4d18-9d8e-3c14e8b706d9)
